@@ -6,9 +6,8 @@ import { PenTool, Wand2, BookOpen, Sparkles, Check } from "lucide-react";
 import Link from "next/link";
 
 export default function LoginPage() {
-  const supabase = createClient();
-
   async function handleGoogleLogin() {
+    const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
