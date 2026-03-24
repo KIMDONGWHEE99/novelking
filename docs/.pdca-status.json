@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-24T16:44:57.324Z",
+  "lastUpdated": "2026-03-24T18:03:41.648Z",
   "activeFeatures": [
     "novelking",
     "db",
@@ -25,7 +25,10 @@
     "[charId]",
     "export",
     "wizard",
-    "review"
+    "review",
+    "supabase",
+    "login",
+    "callback"
   ],
   "primaryFeature": "novelking",
   "features": {
@@ -38,9 +41,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:32:36.270Z",
-        "lastUpdated": "2026-03-24T16:28:35.279Z"
+        "lastUpdated": "2026-03-24T17:28:45.810Z"
       },
-      "lastFile": "C:/Users/PC/novelking/src/app/page.tsx"
+      "lastFile": "C:/Users/PC/novelking/src/middleware.ts"
     },
     "db": {
       "phase": "do",
@@ -340,6 +343,45 @@
         "lastUpdated": "2026-03-24T16:32:56.293Z"
       },
       "lastFile": "C:/Users/PC/novelking/src/app/api/ai/review/route.ts"
+    },
+    "supabase": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T17:28:11.848Z",
+        "lastUpdated": "2026-03-24T18:03:41.648Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/db/repositories/supabase/project.repo.ts"
+    },
+    "login": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T17:29:02.989Z",
+        "lastUpdated": "2026-03-24T17:29:02.989Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/login/page.tsx"
+    },
+    "callback": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T17:29:23.081Z",
+        "lastUpdated": "2026-03-24T17:29:23.081Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/auth/callback/route.ts"
     }
   },
   "pipeline": {
@@ -350,7 +392,7 @@
   "session": {
     "startedAt": "2026-03-24T05:21:29.041Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-24T16:44:57.324Z"
+    "lastActivity": "2026-03-24T18:03:41.648Z"
   },
   "history": [
     {
@@ -1280,6 +1322,48 @@
     {
       "timestamp": "2026-03-24T16:44:57.324Z",
       "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T17:28:11.848Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T17:28:22.698Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T17:28:37.157Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T17:28:45.810Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T17:29:02.989Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T17:29:23.081Z",
+      "feature": "callback",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T18:03:41.648Z",
+      "feature": "supabase",
       "phase": "do",
       "action": "updated"
     }
