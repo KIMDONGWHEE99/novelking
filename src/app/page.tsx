@@ -8,7 +8,7 @@ import { CreateProjectDialog } from "@/components/project/create-project-dialog"
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { LandingPage } from "@/components/landing/landing-page";
 import { Button } from "@/components/ui/button";
-import { Settings, PenTool, Wand2, CreditCard, User } from "lucide-react";
+import { Settings, PenTool, Wand2, CreditCard, User, LogOut } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -69,6 +69,18 @@ function Dashboard() {
               </Button>
             </Link>
             <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              title="로그아웃"
+              onClick={async () => {
+                const supabase = createClient();
+                await supabase.auth.signOut();
+                window.location.href = "/";
+              }}
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </header>
