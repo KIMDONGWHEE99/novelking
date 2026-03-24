@@ -1,0 +1,1287 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-24T16:44:57.324Z",
+  "activeFeatures": [
+    "novelking",
+    "db",
+    "repositories",
+    "ai",
+    "prompts",
+    "store",
+    "transform",
+    "brainstorm",
+    "layout",
+    "project",
+    "[projectId]",
+    "editor",
+    "[chapterId]",
+    "settings",
+    "characters",
+    "plot",
+    "write",
+    "ai-panel",
+    "templates",
+    "template",
+    "[charId]",
+    "export",
+    "wizard",
+    "review"
+  ],
+  "primaryFeature": "novelking",
+  "features": {
+    "novelking": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:32:36.270Z",
+        "lastUpdated": "2026-03-24T16:28:35.279Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/page.tsx"
+    },
+    "db": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:33:01.864Z",
+        "lastUpdated": "2026-03-24T07:21:22.454Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/db/hooks/use-plot.ts"
+    },
+    "repositories": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:33:11.272Z",
+        "lastUpdated": "2026-03-24T07:21:20.695Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/db/repositories/plot.repo.ts"
+    },
+    "ai": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:33:26.096Z",
+        "lastUpdated": "2026-03-24T15:25:50.790Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/ai/provider-registry.ts"
+    },
+    "prompts": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:33:40.354Z",
+        "lastUpdated": "2026-03-24T08:07:59.434Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/ai/prompts/styles.ts"
+    },
+    "store": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:33:44.683Z",
+        "lastUpdated": "2026-03-24T08:08:19.606Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/store/app-store.ts"
+    },
+    "transform": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:33:54.543Z",
+        "lastUpdated": "2026-03-24T08:10:53.779Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/api/ai/transform/route.ts"
+    },
+    "brainstorm": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:34:02.206Z",
+        "lastUpdated": "2026-03-24T05:40:50.407Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/brainstorm/page.tsx"
+    },
+    "layout": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:34:21.518Z",
+        "lastUpdated": "2026-03-24T15:32:59.247Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/components/layout/resizable-panel.tsx"
+    },
+    "project": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:34:46.947Z",
+        "lastUpdated": "2026-03-24T05:42:27.872Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/components/project/create-project-dialog.tsx"
+    },
+    "[projectId]": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:35:37.782Z",
+        "lastUpdated": "2026-03-24T16:29:22.447Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/page.tsx"
+    },
+    "editor": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:36:34.229Z",
+        "lastUpdated": "2026-03-24T15:32:30.334Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/components/editor/novel-editor.tsx"
+    },
+    "[chapterId]": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:37:44.164Z",
+        "lastUpdated": "2026-03-24T16:44:57.324Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/write/[chapterId]/page.tsx"
+    },
+    "settings": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:37:59.298Z",
+        "lastUpdated": "2026-03-24T16:19:36.623Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/settings/page.tsx"
+    },
+    "characters": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:38:35.587Z",
+        "lastUpdated": "2026-03-24T15:44:38.952Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/characters/page.tsx"
+    },
+    "plot": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:38:39.578Z",
+        "lastUpdated": "2026-03-24T16:12:24.872Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/plot/page.tsx"
+    },
+    "write": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T06:06:12.936Z",
+        "lastUpdated": "2026-03-24T08:11:13.545Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/api/ai/write/route.ts"
+    },
+    "ai-panel": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T06:07:52.822Z",
+        "lastUpdated": "2026-03-24T16:30:30.759Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/components/ai-panel/ai-side-panel.tsx"
+    },
+    "templates": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T06:19:25.802Z",
+        "lastUpdated": "2026-03-24T06:19:25.802Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/ai/prompts/templates/character.ts"
+    },
+    "template": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T06:19:31.986Z",
+        "lastUpdated": "2026-03-24T06:19:31.986Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/api/ai/template/route.ts"
+    },
+    "[charId]": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T06:20:45.165Z",
+        "lastUpdated": "2026-03-24T16:04:28.668Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/project/[projectId]/characters/[charId]/page.tsx"
+    },
+    "export": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T07:35:53.541Z",
+        "lastUpdated": "2026-03-24T07:35:53.541Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/lib/export/exporter.ts"
+    },
+    "wizard": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T16:26:28.093Z",
+        "lastUpdated": "2026-03-24T16:32:25.738Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/wizard/page.tsx"
+    },
+    "review": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T16:28:54.052Z",
+        "lastUpdated": "2026-03-24T16:32:56.293Z"
+      },
+      "lastFile": "C:/Users/PC/novelking/src/app/api/ai/review/route.ts"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-24T05:21:29.041Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-24T16:44:57.324Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-24T05:32:36.270Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:32:38.519Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:32:40.273Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:32:42.108Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:32:46.167Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:01.864Z",
+      "feature": "db",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:11.272Z",
+      "feature": "repositories",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:13.647Z",
+      "feature": "db",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:14.808Z",
+      "feature": "db",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:26.096Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:40.354Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:44.683Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:33:54.543Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:34:02.206Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:34:21.518Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:34:23.391Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:34:31.363Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:34:46.947Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:34:52.704Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:35:13.862Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:35:36.132Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:35:37.782Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:35:51.355Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:36:34.229Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:36:46.259Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:37:14.580Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:37:26.220Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:37:44.164Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:37:59.298Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:38:29.280Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:38:35.587Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:38:39.578Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:38:40.935Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:39:39.947Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:39:52.288Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:40:21.340Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:40:21.969Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:40:38.522Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:40:50.407Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:41:11.255Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:41:33.185Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:42:02.772Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:42:27.872Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:05:21.359Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:05:46.204Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:06:03.023Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:06:12.936Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:06:29.260Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:06:42.016Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:06:47.339Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:06:52.894Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:07:17.857Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:07:52.822Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:08:24.252Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:08:53.113Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:09:01.020Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:09:24.601Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:19:09.430Z",
+      "feature": "repositories",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:19:10.293Z",
+      "feature": "db",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:19:25.802Z",
+      "feature": "templates",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:19:31.986Z",
+      "feature": "template",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:20:13.304Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T06:20:45.165Z",
+      "feature": "[charId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:21:10.314Z",
+      "feature": "repositories",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:21:13.126Z",
+      "feature": "db",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:21:20.696Z",
+      "feature": "repositories",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:21:22.455Z",
+      "feature": "db",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:22:48.219Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:35:53.541Z",
+      "feature": "export",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:36:06.288Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:36:26.235Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:36:37.197Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:36:50.683Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:37:04.491Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:38:38.855Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:38:45.356Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:38:51.795Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:39:13.551Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:39:20.381Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:39:38.201Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:39:52.104Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:40:01.167Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:40:12.785Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:40:19.718Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:40:38.334Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:40:58.496Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:41:11.703Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:41:28.188Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:42:31.627Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T07:42:44.669Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:02:26.903Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:02:37.132Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:03:07.242Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:03:18.981Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:04:07.298Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:07:59.434Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:08:19.606Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:09:23.718Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:09:38.645Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:09:53.476Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:10:00.172Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:10:07.239Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:10:21.630Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:10:28.582Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:10:44.916Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:10:53.779Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:11:06.833Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:11:13.545Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:20:43.100Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T08:20:51.238Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:25:50.790Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:32:30.334Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:32:59.247Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:33:54.283Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:34:06.458Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:41:02.746Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:41:17.389Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:42:13.758Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:42:49.486Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:43:41.403Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:44:38.952Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:46:18.748Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:48:47.406Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:49:10.816Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:49:24.829Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:49:40.536Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:50:01.732Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:50:22.029Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:50:30.728Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T15:50:41.538Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:04:28.668Z",
+      "feature": "[charId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:04:51.824Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:05:04.930Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:05:12.716Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:05:31.737Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:05:42.754Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:06:07.944Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:06:38.913Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:12:24.872Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:18:31.213Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:19:36.623Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:26:28.093Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:27:49.861Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:28:17.112Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:28:35.279Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:28:54.052Z",
+      "feature": "review",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:29:22.447Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:29:46.214Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:30:12.343Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:30:21.607Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:30:30.759Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:32:17.823Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:32:25.738Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:32:56.293Z",
+      "feature": "review",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T16:44:57.324Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
