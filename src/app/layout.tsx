@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const baseUrl = "https://novelking.vercel.app";
+const baseUrl = "https://justnovelking.com";
 
 export const metadata: Metadata = {
   title: {

@@ -13,7 +13,7 @@
 - **클라우드 DB**: Supabase (PostgreSQL + Auth) - 연동 진행 중
 - **상태관리**: Zustand (persist)
 - **UI**: shadcn/ui + Tailwind CSS
-- **배포**: Vercel (https://novelking.vercel.app)
+- **배포**: Vercel (https://justnovelking.com)
 - **GitHub**: https://github.com/KIMDONGWHEE99/novelking
 
 ## 완성된 기능 (14개)
