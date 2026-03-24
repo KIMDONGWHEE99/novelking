@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/lib/store/app-store";
-import { projectRepo, chapterRepo } from "@/lib/db/repositories/project.repo";
-import { characterRepo } from "@/lib/db/repositories/character.repo";
-import { worldRepo } from "@/lib/db/repositories/world.repo";
-import { plotColumnRepo, plotCardRepo } from "@/lib/db/repositories/plot.repo";
+import { supabaseProjectRepo, supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
+import { supabaseCharacterRepo } from "@/lib/db/repositories/supabase/character.repo";
+import { supabaseWorldRepo } from "@/lib/db/repositories/supabase/world.repo";
+import { supabasePlotColumnRepo, supabasePlotCardRepo } from "@/lib/db/repositories/supabase/plot.repo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -69,7 +69,7 @@ interface WizardResults {
 
 export default function WizardPage() {
   const router = useRouter();
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [idea, setIdea] = useState("");
   const [genre, setGenre] = useState("");
@@ -78,12 +78,6 @@ export default function WizardPage() {
   const [isCreating, setIsCreating] = useState(false);
 
   async function callWizardApi(step: string) {
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return null;
-    }
-
     setIsGenerating(true);
     try {
       const res = await fetch("/api/ai/wizard", {
@@ -96,7 +90,6 @@ export default function WizardPage() {
           previousResults: results,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
         }),
       });
 
@@ -159,7 +152,7 @@ export default function WizardPage() {
     setIsCreating(true);
     try {
       // 1. 프로젝트 생성
-      const projectId = await projectRepo.create({
+      const projectId = await supabaseProjectRepo.create({
         title: results.title || "새 소설",
         description: results.synopsis || idea,
         genre: genre || "기타",
@@ -173,7 +166,7 @@ export default function WizardPage() {
       // 2. 캐릭터 생성
       if (results.characters) {
         for (const char of results.characters) {
-          await characterRepo.create({
+          await supabaseCharacterRepo.create({
             projectId,
             name: char.name,
             role: char.role,
@@ -189,7 +182,7 @@ export default function WizardPage() {
       // 3. 세계관 생성
       if (results.worldElements) {
         for (const we of results.worldElements) {
-          await worldRepo.create({
+          await supabaseWorldRepo.create({
             projectId,
             type: we.type as "setting" | "location" | "magic-system" | "culture" | "history" | "custom",
             title: we.title,
@@ -202,8 +195,8 @@ export default function WizardPage() {
       // 4. 플롯 열 + 카드 + 챕터 생성
       if (results.chapters) {
         // 플롯 열 초기화
-        await plotColumnRepo.initializeDefault(projectId);
-        const columns = await plotColumnRepo.getByProject(projectId);
+        await supabasePlotColumnRepo.initializeDefault(projectId);
+        const columns = await supabasePlotColumnRepo.getByProject(projectId);
 
         const actToColumn: Record<string, string> = {};
         for (const col of columns) {
@@ -212,7 +205,7 @@ export default function WizardPage() {
 
         for (const ch of results.chapters) {
           // 챕터 생성
-          await chapterRepo.create({
+          await supabaseChapterRepo.create({
             projectId,
             title: `${ch.number}장: ${ch.title}`,
             content: "",
@@ -225,7 +218,7 @@ export default function WizardPage() {
           // 플롯 카드 생성
           const columnId = actToColumn[ch.act] || columns[0]?.id;
           if (columnId) {
-            await plotCardRepo.create({
+            await supabasePlotCardRepo.create({
               projectId,
               columnId,
               title: `${ch.number}장: ${ch.title}`,

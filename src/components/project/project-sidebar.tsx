@@ -18,7 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useProject } from "@/lib/db/hooks/use-projects";
 import { useChapters } from "@/lib/db/hooks/use-chapters";
-import { chapterRepo } from "@/lib/db/repositories/project.repo";
+import { supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
 
 interface ProjectSidebarProps {
   projectId: string;
@@ -40,7 +40,7 @@ export function ProjectSidebar({ projectId }: ProjectSidebarProps) {
 
   async function handleAddChapter() {
     const order = (chapters?.length ?? 0) + 1;
-    const id = await chapterRepo.create({
+    const id = await supabaseChapterRepo.create({
       projectId,
       title: `${order}장`,
       content: "",

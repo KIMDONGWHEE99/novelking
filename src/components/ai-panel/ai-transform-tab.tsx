@@ -8,7 +8,7 @@ import { Loader2, Sparkles, Check, X, RotateCcw } from "lucide-react";
 import { useAppStore } from "@/lib/store/app-store";
 import { buildContext } from "@/lib/ai/context-builder";
 import { getStylePrompt } from "@/lib/ai/prompts/styles";
-import { chapterRepo } from "@/lib/db/repositories/project.repo";
+import { supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
 import type { ContextSelection } from "@/types/ai";
 
 interface AiTransformTabProps {
@@ -24,7 +24,7 @@ export function AiTransformTab({
   editor,
   contextSelection,
 }: AiTransformTabProps) {
-  const { activeProvider, activeModel, getApiKey, customTransformPrompt, writingStyle, stylePrompts } = useAppStore();
+  const { activeProvider, activeModel, customTransformPrompt, writingStyle, stylePrompts } = useAppStore();
   const [isTransforming, setIsTransforming] = useState(false);
   const [preview, setPreview] = useState("");
   const [isDone, setIsDone] = useState(false);
@@ -50,15 +50,9 @@ export function AiTransformTab({
       return;
     }
 
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return;
-    }
-
     // 원본 백업
     const currentHtml = getEditorHtml();
-    await chapterRepo.saveRawDraft(chapterId, currentHtml);
+    await supabaseChapterRepo.saveRawDraft(chapterId, currentHtml);
 
     setIsTransforming(true);
     setPreview("");
@@ -80,7 +74,6 @@ export function AiTransformTab({
           contextBlock,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
           customPrompt: customTransformPrompt,
           writingStyle,
           stylePrompt: getStylePrompt(writingStyle, stylePrompts),
@@ -121,7 +114,7 @@ export function AiTransformTab({
   function handleApply() {
     if (!editor || !preview) return;
     editor.chain().focus().clearContent().insertContent(preview).run();
-    chapterRepo.update(chapterId, { status: "ai-transformed" });
+    supabaseChapterRepo.update(chapterId, { status: "ai-transformed" });
     setPreview("");
     setIsDone(false);
   }

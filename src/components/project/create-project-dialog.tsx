@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
-import { projectRepo } from "@/lib/db/repositories/project.repo";
+import { supabaseProjectRepo } from "@/lib/db/repositories/supabase/project.repo";
 
 const GENRES = [
   "로맨스",
@@ -48,7 +48,7 @@ export function CreateProjectDialog() {
     if (!title.trim()) return;
     setLoading(true);
     try {
-      const id = await projectRepo.create({
+      const id = await supabaseProjectRepo.create({
         title: title.trim(),
         description: description.trim(),
         genre: genre || "기타",

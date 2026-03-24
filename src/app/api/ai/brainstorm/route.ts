@@ -1,24 +1,22 @@
 import { streamText } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { createLlmModel } from "@/lib/ai/create-model";
+import { validateAiRequest, logAiUsage } from "@/lib/ai/auth-middleware";
 
 export async function POST(req: Request) {
-  const { messages, context, provider, model, apiKey } = await req.json();
+  // 인증 + 크레딧 검사
+  const auth = await validateAiRequest();
+  if (auth instanceof Response) return auth;
 
-  if (!apiKey) {
-    return new Response("API 키가 설정되지 않았습니다.", { status: 400 });
-  }
+  const { messages, context, provider, model } = await req.json();
 
   let llmModel;
-  if (provider === "openai") {
-    const openai = createOpenAI({ apiKey });
-    llmModel = openai(model || "gpt-4o-mini");
-  } else if (provider === "anthropic") {
-    const anthropic = createAnthropic({ apiKey });
-    llmModel = anthropic(model || "claude-sonnet-4-5-20250514");
-  } else {
-    return new Response("지원하지 않는 AI 제공자입니다.", { status: 400 });
+  try {
+    llmModel = createLlmModel(provider, model);
+  } catch (e: unknown) {
+    return new Response(e instanceof Error ? e.message : "모델 생성 실패", { status: 400 });
   }
+
+  await logAiUsage(auth.userId, "brainstorm", model);
 
   let systemPrompt = `당신은 소설 창작을 돕는 브레인스토밍 파트너입니다.
 사용자와 함께 소설의 아이디어를 발전시키고, 줄거리를 구상하고, 캐릭터를 개발하는 것을 도와주세요.

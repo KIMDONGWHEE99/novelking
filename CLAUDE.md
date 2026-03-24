@@ -34,7 +34,7 @@
 
 ## 현재 진행 상황: Supabase 백엔드 연동
 
-### 완료 (Phase 1)
+### 완료 (Phase 1 - 인증 + DB 스키마)
 - [x] Supabase 패키지 설치 (@supabase/supabase-js, @supabase/ssr)
 - [x] Supabase 클라이언트 (src/lib/supabase/client.ts, server.ts, middleware.ts)
 - [x] Google OAuth 로그인 (src/app/login/page.tsx, src/app/auth/callback/route.ts)
@@ -42,35 +42,34 @@
 - [x] DB 스키마 10개 테이블 + RLS + 인덱스 (supabase/schema.sql)
 - [x] Supabase Repository 시작 (src/lib/db/repositories/supabase/project.repo.ts)
 
-### 다음 작업 (Phase 2 - 데이터 클라우드 전환)
-- [ ] 나머지 Supabase Repository 작성:
-  - src/lib/db/repositories/supabase/character.repo.ts
-  - src/lib/db/repositories/supabase/world.repo.ts
-  - src/lib/db/repositories/supabase/plot.repo.ts
-  - src/lib/db/repositories/supabase/chat.repo.ts
-- [ ] Hooks 분기: 로그인 시 Supabase repo, 미로그인 시 IndexedDB repo 사용
-  - src/lib/db/hooks/use-projects.ts 등 5개 파일 수정
-- [ ] 프로젝트 생성 시 user_id 자동 주입
+### 완료 (Phase 2 - 데이터 클라우드 전환)
+- [x] Supabase Repository 4개 추가 (character, world, plot, chat)
+- [x] 모든 Hooks를 IndexedDB → Supabase로 전환 (로그인 필수)
+- [x] 컴포넌트 13개 + exporter + context-builder의 repo import 교체
+- [x] use-chat.ts 신규 훅 추가
 
-### Phase 3 - AI 서버 측 전환
-- [ ] .env.local에 OPENAI_API_KEY, ANTHROPIC_API_KEY 설정 (우리 키)
-- [ ] 모든 AI 라우트에 인증 + 크레딧 검사 미들웨어 추가 (src/lib/ai/auth-middleware.ts)
-- [ ] ai_logs 테이블에 사용 로그 기록
-- [ ] 피드백 API (src/app/api/ai/feedback/route.ts)
-- [ ] 설정 페이지에서 "API 키 직접 입력" 제거 → 서버 키 사용
+### 완료 (Phase 3 - AI 서버 측 전환)
+- [x] ANTHROPIC_API_KEY 서버 환경변수로 설정 (클라이언트 노출 없음)
+- [x] AI 인증 미들웨어 (src/lib/ai/auth-middleware.ts) - 로그인 + 일일 50회 크레딧 제한
+- [x] AI 모델 생성 유틸 (src/lib/ai/create-model.ts) - Anthropic만 지원
+- [x] 모든 AI 라우트 6개에 인증/크레딧/로그 적용
+- [x] ai_logs 테이블에 사용 로그 기록
+- [x] 설정 페이지에서 "API 키 직접 입력" 제거
+- [x] Provider Registry에서 OpenAI 제거, Anthropic만 유지
+- [x] Zustand 스토어에서 apiKeys/getApiKey/setApiKey 제거
 
-### Phase 4 - 결제 연동
-- [ ] 요금제 페이지 (src/app/pricing/page.tsx)
-- [ ] 내 계정 페이지 (src/app/account/page.tsx)
-- [ ] 토스페이먼츠 연동 (사업자등록 필요)
+### 완료 (Phase 4 - 결제 UI)
+- [x] 요금제 페이지 (src/app/pricing/page.tsx) - Free + Pro 비교 카드
+- [x] 내 계정 페이지 (src/app/account/page.tsx) - 프로필/요금제/사용량/로그아웃
+- [x] 홈 헤더에 요금제/계정 네비게이션 추가
+- [ ] 토스페이먼츠 실제 연동 (사업자등록 완료 후)
 - [ ] 결제 웹훅 (src/app/api/webhooks/toss/route.ts)
 
 ## 환경변수 (.env.local)
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://ibfwaczmpwyatjlpwrkq.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_eW8AXi6kWK1n_u2m0P0Vjg_zZILlT9s
-OPENAI_API_KEY=       # Phase 3에서 추가
-ANTHROPIC_API_KEY=    # Phase 3에서 추가
+ANTHROPIC_API_KEY=sk-ant-...  # 서버 전용 (클라이언트 노출 안 됨)
 ```
 
 ## 주요 파일 구조

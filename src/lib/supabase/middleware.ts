@@ -32,8 +32,10 @@ export async function updateSession(request: NextRequest) {
   // 로그인하지 않은 사용자는 /login으로 리다이렉트
   // 단, /login, /auth/callback, API 라우트는 제외
   const { pathname } = request.nextUrl;
-  const publicPaths = ["/login", "/auth/callback", "/api/"];
-  const isPublic = publicPaths.some((p) => pathname.startsWith(p));
+  const publicPaths = ["/login", "/auth/callback", "/api/", "/pricing", "/read/"];
+  const isPublic =
+    pathname === "/" ||
+    publicPaths.some((p) => pathname.startsWith(p));
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone();

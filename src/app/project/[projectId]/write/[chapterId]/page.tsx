@@ -4,14 +4,14 @@ import { use, useState, useCallback, useRef, useEffect } from "react";
 import type { Editor } from "@tiptap/core";
 import { useChapter } from "@/lib/db/hooks/use-chapters";
 import { useProject } from "@/lib/db/hooks/use-projects";
-import { chapterRepo } from "@/lib/db/repositories/project.repo";
+import { supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
 import { NovelEditor } from "@/components/editor/novel-editor";
 import { AiSidePanel } from "@/components/ai-panel/ai-side-panel";
 import { useAppStore } from "@/lib/store/app-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Undo2, Sparkles, PanelRight, Download } from "lucide-react";
+import { Undo2, Sparkles, PanelRight, Download, Share2, Check, LinkIcon } from "lucide-react";
 import { exportChapter, downloadFile } from "@/lib/export/exporter";
 import {
   DropdownMenu,
@@ -98,7 +98,7 @@ export default function WritePage({
 
   const handleContentUpdate = useCallback(
     async (html: string) => {
-      await chapterRepo.updateContent(chapterId, html);
+      await supabaseChapterRepo.updateContent(chapterId, html);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     },
@@ -108,7 +108,7 @@ export default function WritePage({
   const handleTitleChange = useCallback(
     async (newTitle: string) => {
       setTitle(newTitle);
-      await chapterRepo.update(chapterId, { title: newTitle });
+      await supabaseChapterRepo.update(chapterId, { title: newTitle });
     },
     [chapterId]
   );
@@ -116,7 +116,7 @@ export default function WritePage({
   const handleRestoreDraft = useCallback(async () => {
     if (!chapter?.rawDraft) return;
     if (confirm("원본 초안으로 되돌리시겠습니까? 현재 내용이 사라집니다.")) {
-      await chapterRepo.updateContent(chapterId, chapter.rawDraft);
+      await supabaseChapterRepo.updateContent(chapterId, chapter.rawDraft);
       window.location.reload();
     }
   }, [chapter, chapterId]);
@@ -185,7 +185,7 @@ export default function WritePage({
               ].map((s) => (
                 <DropdownMenuItem
                   key={s.value}
-                  onClick={() => chapterRepo.update(chapterId, { status: s.value as "draft" | "writing" | "ai-transformed" | "editing" | "complete" })}
+                  onClick={() => supabaseChapterRepo.update(chapterId, { status: s.value as "draft" | "writing" | "ai-transformed" | "editing" | "complete" })}
                 >
                   {s.label}
                   {chapter.status === s.value && " ✓"}
@@ -211,6 +211,7 @@ export default function WritePage({
               원본 복원
             </Button>
           )}
+          <ShareButton chapterId={chapterId} />
           <DropdownMenu>
             <DropdownMenuTrigger
               className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm hover:bg-accent cursor-pointer whitespace-nowrap shrink-0"
@@ -274,5 +275,50 @@ export default function WritePage({
         )}
       </DraggableLayout>
     </div>
+  );
+}
+
+function ShareButton({ chapterId }: { chapterId: string }) {
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  async function handleShare() {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/share/${chapterId}`, { method: "POST" });
+      const data = await res.json();
+      if (data.shareToken) {
+        const url = `${window.location.origin}/read/${data.shareToken}`;
+        await navigator.clipboard.writeText(url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      }
+    } catch {
+      alert("공유 링크 생성에 실패했습니다");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      className="gap-1.5"
+      onClick={handleShare}
+      disabled={loading}
+    >
+      {copied ? (
+        <>
+          <Check className="h-3.5 w-3.5 text-green-500" />
+          복사됨!
+        </>
+      ) : (
+        <>
+          <Share2 className="h-3.5 w-3.5" />
+          공유
+        </>
+      )}
+    </Button>
   );
 }

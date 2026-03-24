@@ -12,18 +12,12 @@ interface AiReviewTabProps {
 }
 
 export function AiReviewTab({ editor }: AiReviewTabProps) {
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
   const [isReviewing, setIsReviewing] = useState(false);
   const [review, setReview] = useState("");
 
   async function handleReview() {
     if (!editor) return;
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return;
-    }
-
     const text = editor.getText();
     if (!text.trim()) {
       alert("교정할 내용이 없습니다. 먼저 글을 작성해주세요.");
@@ -41,7 +35,6 @@ export function AiReviewTab({ editor }: AiReviewTabProps) {
           content: text,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
         }),
       });
 

@@ -3,7 +3,7 @@
 import { use, useState } from "react";
 import { useWorldElements } from "@/lib/db/hooks/use-world";
 import { useProject } from "@/lib/db/hooks/use-projects";
-import { worldRepo } from "@/lib/db/repositories/world.repo";
+import { supabaseWorldRepo } from "@/lib/db/repositories/supabase/world.repo";
 import { useAppStore } from "@/lib/store/app-store";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -50,7 +50,7 @@ export default function WorldbuildingPage({
   const { projectId } = use(params);
   const { elements, isLoading } = useWorldElements(projectId);
   const { project } = useProject(projectId);
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
 
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -69,9 +69,6 @@ export default function WorldbuildingPage({
     let generatedContent: string | undefined;
 
     if (withAi) {
-      const apiKey = getApiKey(activeProvider);
-      if (!apiKey) { alert("설정에서 API 키를 먼저 입력해주세요."); return; }
-
       setIsGenerating(true);
       try {
         const res = await fetch("/api/ai/write", {
@@ -85,7 +82,6 @@ export default function WorldbuildingPage({
             contextBlock: project ? `장르: ${project.genre}\n소설 제목: ${project.title}` : "",
             provider: activeProvider,
             model: activeModel,
-            apiKey,
           }),
         });
 
@@ -98,7 +94,7 @@ export default function WorldbuildingPage({
       }
     }
 
-    await worldRepo.create({
+    await supabaseWorldRepo.create({
       projectId,
       type,
       title: title.trim(),
@@ -113,7 +109,7 @@ export default function WorldbuildingPage({
   }
 
   async function handleSaveEdit(id: string) {
-    await worldRepo.update(id, { content: editContent });
+    await supabaseWorldRepo.update(id, { content: editContent });
     setEditId(null);
   }
 
@@ -251,7 +247,7 @@ export default function WorldbuildingPage({
                         className="h-7 w-7"
                         onClick={() => {
                           if (confirm(`'${el.title}'을 삭제하시겠습니까?`)) {
-                            worldRepo.delete(el.id);
+                            supabaseWorldRepo.delete(el.id);
                           }
                         }}
                       >

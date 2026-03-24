@@ -6,18 +6,8 @@ export interface LlmProviderInfo {
   models: LlmModel[];
 }
 
-// 지원하는 LLM 제공자 목록
+// 지원하는 LLM 제공자 목록 (현재 Anthropic만 서버 키 지원)
 export const PROVIDERS: LlmProviderInfo[] = [
-  {
-    id: "openai",
-    name: "OpenAI",
-    models: [
-      { id: "gpt-4o", name: "GPT-4o", provider: "openai" },
-      { id: "gpt-4o-mini", name: "GPT-4o Mini", provider: "openai" },
-      { id: "gpt-4.1", name: "GPT-4.1", provider: "openai" },
-      { id: "gpt-4.1-mini", name: "GPT-4.1 Mini", provider: "openai" },
-    ],
-  },
   {
     id: "anthropic",
     name: "Anthropic (Claude)",

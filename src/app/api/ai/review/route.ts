@@ -1,19 +1,27 @@
 import { NextRequest } from "next/server";
-import { createOpenAI } from "@ai-sdk/openai";
-import { createAnthropic } from "@ai-sdk/anthropic";
 import { streamText } from "ai";
+import { createLlmModel } from "@/lib/ai/create-model";
+import { validateAiRequest, logAiUsage } from "@/lib/ai/auth-middleware";
 
 export async function POST(req: NextRequest) {
-  const { content, provider, model, apiKey } = await req.json();
+  // 인증 + 크레딧 검사
+  const auth = await validateAiRequest();
+  if (auth instanceof Response) return auth;
 
-  if (!apiKey || !content) {
-    return new Response("Missing required fields", { status: 400 });
+  const { content, provider, model } = await req.json();
+
+  if (!content) {
+    return new Response("검토할 원고가 없습니다.", { status: 400 });
   }
 
-  const llm =
-    provider === "anthropic"
-      ? createAnthropic({ apiKey })(model)
-      : createOpenAI({ apiKey })(model);
+  let llm;
+  try {
+    llm = createLlmModel(provider, model);
+  } catch (e: unknown) {
+    return new Response(e instanceof Error ? e.message : "모델 생성 실패", { status: 400 });
+  }
+
+  await logAiUsage(auth.userId, "review", model, content.slice(0, 200));
 
   const result = streamText({
     model: llm,

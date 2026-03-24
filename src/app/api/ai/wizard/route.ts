@@ -1,20 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createOpenAI } from "@ai-sdk/openai";
-import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
+import { createLlmModel } from "@/lib/ai/create-model";
+import { validateAiRequest, logAiUsage } from "@/lib/ai/auth-middleware";
 
 export async function POST(req: NextRequest) {
-  const { step, idea, genre, previousResults, provider, model, apiKey } =
+  // 인증 + 크레딧 검사
+  const auth = await validateAiRequest();
+  if (auth instanceof Response) return auth;
+
+  const { step, idea, genre, previousResults, provider, model } =
     await req.json();
 
-  if (!apiKey || !idea) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  if (!idea) {
+    return NextResponse.json({ error: "아이디어를 입력해주세요." }, { status: 400 });
   }
 
-  const llm =
-    provider === "anthropic"
-      ? createAnthropic({ apiKey })(model)
-      : createOpenAI({ apiKey })(model);
+  let llm;
+  try {
+    llm = createLlmModel(provider, model);
+  } catch (e: unknown) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "모델 생성 실패" },
+      { status: 400 }
+    );
+  }
+
+  await logAiUsage(auth.userId, `wizard-${step}`, model, idea.slice(0, 200));
 
   const prompts: Record<string, string> = {
     synopsis: `당신은 베스트셀러 소설 기획 전문가입니다.

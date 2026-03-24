@@ -2,7 +2,7 @@
 
 import { use, useState, useRef, useCallback } from "react";
 import { useProject } from "@/lib/db/hooks/use-projects";
-import { projectRepo } from "@/lib/db/repositories/project.repo";
+import { supabaseProjectRepo } from "@/lib/db/repositories/supabase/project.repo";
 import { PROVIDERS, getModelsForProvider } from "@/lib/ai/provider-registry";
 import { DEFAULT_STYLE_PROMPTS } from "@/lib/ai/prompts/styles";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ export default function ProjectSettingsPage({
 
   const save = useCallback(
     async (data: Record<string, unknown>) => {
-      await projectRepo.update(projectId, data);
+      await supabaseProjectRepo.update(projectId, data);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     },
@@ -85,7 +85,7 @@ export default function ProjectSettingsPage({
     const doubleCheck = confirm("이 작업은 되돌릴 수 없습니다. 정말로 삭제하시겠습니까?");
     if (!doubleCheck) return;
 
-    await projectRepo.delete(projectId);
+    await supabaseProjectRepo.delete(projectId);
     router.push("/");
   }
 

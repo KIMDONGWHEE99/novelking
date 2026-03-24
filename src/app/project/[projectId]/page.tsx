@@ -5,7 +5,7 @@ import { useProject } from "@/lib/db/hooks/use-projects";
 import { useChapters } from "@/lib/db/hooks/use-chapters";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { chapterRepo } from "@/lib/db/repositories/project.repo";
+import { supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
 import { PenTool, FileText, MessageSquare, Users, Download } from "lucide-react";
 import { exportProject, downloadFile } from "@/lib/export/exporter";
 import Link from "next/link";
@@ -21,7 +21,7 @@ export default function ProjectDashboard({
 
   async function handleAddChapter() {
     const order = (chapters?.length ?? 0) + 1;
-    const id = await chapterRepo.create({
+    const id = await supabaseChapterRepo.create({
       projectId,
       title: `${order}장`,
       content: "",

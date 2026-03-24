@@ -1,6 +1,6 @@
 import { streamText } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { createLlmModel } from "@/lib/ai/create-model";
+import { validateAiRequest, logAiUsage } from "@/lib/ai/auth-middleware";
 import {
   buildTransformSystemPrompt,
   buildFullTransformSystemPrompt,
@@ -8,6 +8,10 @@ import {
 } from "@/lib/ai/prompts/transform";
 
 export async function POST(req: Request) {
+  // 인증 + 크레딧 검사
+  const auth = await validateAiRequest();
+  if (auth instanceof Response) return auth;
+
   const {
     text,
     instruction,
@@ -15,7 +19,6 @@ export async function POST(req: Request) {
     context,
     provider,
     model,
-    apiKey,
     mode,
     contextBlock,
     customPrompt,
@@ -23,25 +26,19 @@ export async function POST(req: Request) {
     stylePrompt,
   } = await req.json();
 
-  if (!apiKey) {
-    return new Response("API 키가 설정되지 않았습니다.", { status: 400 });
-  }
-
   if (!text) {
     return new Response("변환할 텍스트가 없습니다.", { status: 400 });
   }
 
-  // LLM 클라이언트 생성
   let llmModel;
-  if (provider === "openai") {
-    const openai = createOpenAI({ apiKey });
-    llmModel = openai(model || "gpt-4o-mini");
-  } else if (provider === "anthropic") {
-    const anthropic = createAnthropic({ apiKey });
-    llmModel = anthropic(model || "claude-sonnet-4-5-20250514");
-  } else {
-    return new Response("지원하지 않는 AI 제공자입니다.", { status: 400 });
+  try {
+    llmModel = createLlmModel(provider, model);
+  } catch (e: unknown) {
+    return new Response(e instanceof Error ? e.message : "모델 생성 실패", { status: 400 });
   }
+
+  // 사용 로그 기록
+  await logAiUsage(auth.userId, "transform", model, text.slice(0, 200));
 
   // 커스텀 프롬프트 접미사
   const styleNote = stylePrompt

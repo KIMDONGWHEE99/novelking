@@ -28,8 +28,6 @@ import {
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import {
   ChevronLeft,
-  Eye,
-  EyeOff,
   RotateCcw,
   Plus,
   X,
@@ -47,8 +45,6 @@ export default function SettingsPage() {
     activeModel,
     setActiveProvider,
     setActiveModel,
-    setApiKey,
-    getApiKey,
     customTransformPrompt,
     customWritePrompt,
     writingStyle,
@@ -63,7 +59,6 @@ export default function SettingsPage() {
     resetStylePrompt,
   } = useAppStore();
 
-  const [showKeys, setShowKeys] = useState<Record<string, boolean>>({});
   const [newStyle, setNewStyle] = useState("");
   const [showDefaultTransform, setShowDefaultTransform] = useState(false);
   const [showDefaultWrite, setShowDefaultWrite] = useState(false);
@@ -165,40 +160,6 @@ export default function SettingsPage() {
                 </SelectContent>
               </Select>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* API 키 설정 */}
-        <Card>
-          <CardHeader>
-            <CardTitle>API 키</CardTitle>
-            <CardDescription>
-              각 AI 제공자의 API 키를 입력하세요. 키는 브라우저에만 저장됩니다.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {PROVIDERS.map((provider) => (
-              <div key={provider.id} className="space-y-2">
-                <Label>{provider.name} API 키</Label>
-                <div className="flex gap-2">
-                  <Input
-                    type={showKeys[provider.id] ? "text" : "password"}
-                    placeholder={`${provider.name} API 키를 입력하세요`}
-                    value={getApiKey(provider.id)}
-                    onChange={(e) => setApiKey(provider.id, e.target.value)}
-                  />
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() =>
-                      setShowKeys((prev) => ({ ...prev, [provider.id]: !prev[provider.id] }))
-                    }
-                  >
-                    {showKeys[provider.id] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
-                </div>
-              </div>
-            ))}
           </CardContent>
         </Card>
 

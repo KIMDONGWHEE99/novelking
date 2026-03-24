@@ -16,7 +16,6 @@ interface AppState {
   // AI 설정
   activeProvider: string;
   activeModel: string;
-  apiKeys: Record<string, string>;
 
   // 프롬프트 커스터마이징
   customTransformPrompt: string;
@@ -32,8 +31,6 @@ interface AppState {
   // Actions
   setActiveProvider: (provider: string) => void;
   setActiveModel: (model: string) => void;
-  setApiKey: (providerId: string, key: string) => void;
-  getApiKey: (providerId: string) => string;
   setCustomTransformPrompt: (prompt: string) => void;
   setCustomWritePrompt: (prompt: string) => void;
   setWritingStyle: (style: string) => void;
@@ -49,9 +46,8 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
-      activeProvider: "openai",
-      activeModel: "gpt-4o-mini",
-      apiKeys: {},
+      activeProvider: "anthropic",
+      activeModel: "claude-sonnet-4-6-20250514",
       customTransformPrompt: "",
       customWritePrompt: "",
       writingStyle: "대중소설",
@@ -62,11 +58,6 @@ export const useAppStore = create<AppState>()(
 
       setActiveProvider: (provider) => set({ activeProvider: provider }),
       setActiveModel: (model) => set({ activeModel: model }),
-      setApiKey: (providerId, key) =>
-        set((state) => ({
-          apiKeys: { ...state.apiKeys, [providerId]: key },
-        })),
-      getApiKey: (providerId) => get().apiKeys[providerId] ?? "",
       setCustomTransformPrompt: (prompt) =>
         set({ customTransformPrompt: prompt }),
       setCustomWritePrompt: (prompt) => set({ customWritePrompt: prompt }),

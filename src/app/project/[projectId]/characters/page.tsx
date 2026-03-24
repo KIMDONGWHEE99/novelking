@@ -4,7 +4,7 @@ import { use, useState, useRef } from "react";
 import { useCharacters } from "@/lib/db/hooks/use-characters";
 import { useProject } from "@/lib/db/hooks/use-projects";
 import { useWorldElements } from "@/lib/db/hooks/use-world";
-import { characterRepo } from "@/lib/db/repositories/character.repo";
+import { supabaseCharacterRepo } from "@/lib/db/repositories/supabase/character.repo";
 import { useAppStore } from "@/lib/store/app-store";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -60,7 +60,7 @@ export default function CharactersPage({
   const { characters, isLoading } = useCharacters(projectId);
   const { project } = useProject(projectId);
   const { elements: worldElements } = useWorldElements(projectId);
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
@@ -105,12 +105,6 @@ export default function CharactersPage({
     if (!name.trim()) return;
 
     if (withAi) {
-      const apiKey = getApiKey(activeProvider);
-      if (!apiKey) {
-        alert("설정에서 API 키를 먼저 입력해주세요.");
-        return;
-      }
-
       setIsGenerating(true);
       try {
         const res = await fetch("/api/ai/template", {
@@ -122,7 +116,6 @@ export default function CharactersPage({
             genre: project?.genre,
             provider: activeProvider,
             model: activeModel,
-            apiKey,
           }),
         });
 
@@ -141,7 +134,7 @@ export default function CharactersPage({
           parsed = { description: briefDesc, backstory: "", traits: [] };
         }
 
-        await characterRepo.create({
+        await supabaseCharacterRepo.create({
           projectId,
           name: name.trim(),
           role,
@@ -159,7 +152,7 @@ export default function CharactersPage({
         setIsGenerating(false);
       }
     } else {
-      await characterRepo.create({
+      await supabaseCharacterRepo.create({
         projectId,
         name: name.trim(),
         role,
@@ -189,7 +182,7 @@ export default function CharactersPage({
 
   async function handleDelete(id: string, charName: string) {
     if (confirm(`'${charName}' 캐릭터를 삭제하시겠습니까?`)) {
-      await characterRepo.delete(id);
+      await supabaseCharacterRepo.delete(id);
     }
   }
 

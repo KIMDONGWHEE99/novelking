@@ -38,7 +38,7 @@ export function AiWriteTab({
   editor,
   contextSelection,
 }: AiWriteTabProps) {
-  const { activeProvider, activeModel, getApiKey, customWritePrompt, writingStyle, stylePrompts } = useAppStore();
+  const { activeProvider, activeModel, customWritePrompt, writingStyle, stylePrompts } = useAppStore();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -51,12 +51,6 @@ export function AiWriteTab({
 
   async function handleSend() {
     if (!input.trim() || isLoading) return;
-
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return;
-    }
 
     const userMessage: Message = { role: "user", content: input.trim() };
     const newMessages = [...messages, userMessage];
@@ -83,7 +77,6 @@ export function AiWriteTab({
           contextBlock,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
           customPrompt: customWritePrompt,
           writingStyle,
           stylePrompt: getStylePrompt(writingStyle, stylePrompts),

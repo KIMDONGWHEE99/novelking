@@ -1,17 +1,31 @@
 "use client";
 
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../database";
+import { useState, useEffect, useCallback } from "react";
+import { supabaseWorldRepo } from "../repositories/supabase/world.repo";
+import type { WorldElement } from "@/types/world";
 
 export function useWorldElements(projectId: string) {
-  const elements = useLiveQuery(
-    () => db.worldElements.where("projectId").equals(projectId).toArray(),
-    [projectId]
-  );
-  return { elements, isLoading: elements === undefined };
+  const [elements, setElements] = useState<WorldElement[]>();
+  const [version, setVersion] = useState(0);
+
+  useEffect(() => {
+    setElements(undefined);
+    supabaseWorldRepo.getByProject(projectId).then(setElements).catch(console.error);
+  }, [projectId, version]);
+
+  const refetch = useCallback(() => setVersion((v) => v + 1), []);
+  return { elements, isLoading: elements === undefined, refetch };
 }
 
 export function useWorldElement(id: string) {
-  const element = useLiveQuery(() => db.worldElements.get(id), [id]);
-  return { element, isLoading: element === undefined };
+  const [element, setElement] = useState<WorldElement>();
+  const [version, setVersion] = useState(0);
+
+  useEffect(() => {
+    setElement(undefined);
+    supabaseWorldRepo.getById(id).then(setElement).catch(console.error);
+  }, [id, version]);
+
+  const refetch = useCallback(() => setVersion((v) => v + 1), []);
+  return { element, isLoading: element === undefined, refetch };
 }

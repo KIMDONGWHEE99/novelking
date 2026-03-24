@@ -1,8 +1,10 @@
-import { db } from "@/lib/db/database";
+import { supabaseProjectRepo, supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
+import { supabaseCharacterRepo } from "@/lib/db/repositories/supabase/character.repo";
+import { supabaseWorldRepo } from "@/lib/db/repositories/supabase/world.repo";
 import type { ContextSelection } from "@/types/ai";
 
 /**
- * 사용자가 선택한 컨텍스트 항목을 Dexie DB에서 수집하여
+ * 사용자가 선택한 컨텍스트 항목을 Supabase에서 수집하여
  * LLM 프롬프트에 포함할 문자열로 조합합니다.
  */
 export async function buildContext(
@@ -14,7 +16,7 @@ export async function buildContext(
 
   // 프로젝트 정보
   if (selection.projectInfo) {
-    const project = await db.projects.get(projectId);
+    const project = await supabaseProjectRepo.getById(projectId);
     if (project) {
       parts.push(
         `[프로젝트 정보]\n제목: ${project.title}\n장르: ${project.genre}\n개요: ${project.description || "없음"}`
@@ -24,10 +26,7 @@ export async function buildContext(
 
   // 캐릭터 정보
   if (selection.characters) {
-    const characters = await db.characters
-      .where("projectId")
-      .equals(projectId)
-      .toArray();
+    const characters = await supabaseCharacterRepo.getByProject(projectId);
     if (characters.length > 0) {
       const charTexts = characters.map((c) => {
         let text = `- ${c.name} (${c.role}): ${c.description}`;
@@ -43,10 +42,7 @@ export async function buildContext(
 
   // 세계관 정보
   if (selection.worldSettings) {
-    const elements = await db.worldElements
-      .where("projectId")
-      .equals(projectId)
-      .toArray();
+    const elements = await supabaseWorldRepo.getByProject(projectId);
     if (elements.length > 0) {
       const worldTexts = elements.map(
         (e) => `- [${e.type}] ${e.title}: ${e.content.slice(0, 300)}`
@@ -57,13 +53,12 @@ export async function buildContext(
 
   // 이전 챕터 내용 (현재 챕터보다 order가 작은 것만)
   if (selection.previousChapters) {
-    const currentChapter = await db.chapters.get(chapterId);
+    const currentChapter = await supabaseChapterRepo.getById(chapterId);
     if (currentChapter) {
-      const prevChapters = await db.chapters
-        .where("projectId")
-        .equals(projectId)
+      const allChapters = await supabaseChapterRepo.getByProject(projectId);
+      const prevChapters = allChapters
         .filter((c) => c.order < currentChapter.order)
-        .sortBy("order");
+        .sort((a, b) => a.order - b.order);
       if (prevChapters.length > 0) {
         const chapterTexts = prevChapters.map((c) => {
           const plain = stripHtml(c.content).slice(0, 500);

@@ -2,7 +2,7 @@
 
 import { use, useState, useCallback } from "react";
 import { useCharacter } from "@/lib/db/hooks/use-characters";
-import { characterRepo } from "@/lib/db/repositories/character.repo";
+import { supabaseCharacterRepo } from "@/lib/db/repositories/supabase/character.repo";
 import { useAppStore } from "@/lib/store/app-store";
 import { useProject } from "@/lib/db/hooks/use-projects";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ export default function CharacterDetailPage({
   const { projectId, charId } = use(params);
   const { character, isLoading } = useCharacter(charId);
   const { project } = useProject(projectId);
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
 
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [newTag, setNewTag] = useState("");
@@ -38,7 +38,7 @@ export default function CharacterDetailPage({
 
   const save = useCallback(
     async (data: Record<string, unknown>) => {
-      await characterRepo.update(charId, data);
+      await supabaseCharacterRepo.update(charId, data);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     },
@@ -47,12 +47,6 @@ export default function CharacterDetailPage({
 
   async function handleRegenerate() {
     if (!character) return;
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return;
-    }
-
     setIsRegenerating(true);
     try {
       const res = await fetch("/api/ai/template", {
@@ -64,7 +58,6 @@ export default function CharacterDetailPage({
           genre: project?.genre,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
         }),
       });
 

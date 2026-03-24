@@ -1,4 +1,4 @@
-import { db } from "@/lib/db/database";
+import { supabaseProjectRepo, supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
 import type { Project, Chapter } from "@/types/project";
 
 export type ExportFormat = "txt" | "html";
@@ -16,13 +16,10 @@ export async function exportProject(
   projectId: string,
   format: ExportFormat
 ): Promise<ExportResult> {
-  const project = await db.projects.get(projectId);
+  const project = await supabaseProjectRepo.getById(projectId);
   if (!project) throw new Error("프로젝트를 찾을 수 없습니다.");
 
-  const chapters = await db.chapters
-    .where("projectId")
-    .equals(projectId)
-    .sortBy("order");
+  const chapters = await supabaseChapterRepo.getByProject(projectId);
 
   if (chapters.length === 0) throw new Error("내보낼 챕터가 없습니다.");
 
@@ -50,10 +47,10 @@ export async function exportChapter(
   chapterId: string,
   format: ExportFormat
 ): Promise<ExportResult> {
-  const chapter = await db.chapters.get(chapterId);
+  const chapter = await supabaseChapterRepo.getById(chapterId);
   if (!chapter) throw new Error("챕터를 찾을 수 없습니다.");
 
-  const project = await db.projects.get(chapter.projectId);
+  const project = await supabaseProjectRepo.getById(chapter.projectId);
   const safeTitle = `${project?.title ?? "소설"}_${chapter.title}`.replace(
     /[<>:"/\\|?*]/g,
     "_"

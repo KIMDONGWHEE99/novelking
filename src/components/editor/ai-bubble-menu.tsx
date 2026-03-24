@@ -63,7 +63,7 @@ export function AiBubbleMenu() {
   const { editor } = useEditor();
   const [isTransforming, setIsTransforming] = useState(false);
   const [showAiMenu, setShowAiMenu] = useState(false);
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
 
   async function handleTransform(transformType: string) {
     if (!editor || isTransforming) return;
@@ -71,12 +71,6 @@ export function AiBubbleMenu() {
     const { from, to } = editor.state.selection;
     const selectedText = editor.state.doc.textBetween(from, to, "\n");
     if (!selectedText.trim()) return;
-
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return;
-    }
 
     setIsTransforming(true);
     try {
@@ -88,7 +82,6 @@ export function AiBubbleMenu() {
           transformType,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
         }),
       });
 

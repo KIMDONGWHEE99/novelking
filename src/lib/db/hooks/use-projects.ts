@@ -1,16 +1,31 @@
 "use client";
 
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../database";
+import { useState, useEffect, useCallback } from "react";
+import { supabaseProjectRepo } from "../repositories/supabase/project.repo";
+import type { Project } from "@/types/project";
 
 export function useProjects() {
-  const projects = useLiveQuery(() =>
-    db.projects.orderBy("updatedAt").reverse().toArray()
-  );
-  return { projects, isLoading: projects === undefined };
+  const [projects, setProjects] = useState<Project[]>();
+  const [version, setVersion] = useState(0);
+
+  useEffect(() => {
+    setProjects(undefined);
+    supabaseProjectRepo.getAll().then(setProjects).catch(console.error);
+  }, [version]);
+
+  const refetch = useCallback(() => setVersion((v) => v + 1), []);
+  return { projects, isLoading: projects === undefined, refetch };
 }
 
 export function useProject(id: string) {
-  const project = useLiveQuery(() => db.projects.get(id), [id]);
-  return { project, isLoading: project === undefined };
+  const [project, setProject] = useState<Project>();
+  const [version, setVersion] = useState(0);
+
+  useEffect(() => {
+    setProject(undefined);
+    supabaseProjectRepo.getById(id).then(setProject).catch(console.error);
+  }, [id, version]);
+
+  const refetch = useCallback(() => setVersion((v) => v + 1), []);
+  return { project, isLoading: project === undefined, refetch };
 }

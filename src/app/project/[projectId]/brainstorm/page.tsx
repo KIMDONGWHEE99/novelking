@@ -20,7 +20,7 @@ export default function BrainstormPage({
 }) {
   const { projectId } = use(params);
   const { project } = useProject(projectId);
-  const { activeProvider, activeModel, getApiKey } = useAppStore();
+  const { activeProvider, activeModel } = useAppStore();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,12 +32,6 @@ export default function BrainstormPage({
 
   async function handleSend() {
     if (!input.trim() || isLoading) return;
-
-    const apiKey = getApiKey(activeProvider);
-    if (!apiKey) {
-      alert("설정에서 API 키를 먼저 입력해주세요.");
-      return;
-    }
 
     const userMessage: Message = { role: "user", content: input.trim() };
     const newMessages = [...messages, userMessage];
@@ -63,7 +57,6 @@ export default function BrainstormPage({
             : undefined,
           provider: activeProvider,
           model: activeModel,
-          apiKey,
         }),
       });
 

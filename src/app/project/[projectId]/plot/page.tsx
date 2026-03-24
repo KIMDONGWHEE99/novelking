@@ -5,9 +5,9 @@ import { usePlotColumns } from "@/lib/db/hooks/use-plot";
 import { usePlotCards } from "@/lib/db/hooks/use-plot";
 import { useCharacters } from "@/lib/db/hooks/use-characters";
 import {
-  plotColumnRepo,
-  plotCardRepo,
-} from "@/lib/db/repositories/plot.repo";
+  supabasePlotColumnRepo,
+  supabasePlotCardRepo,
+} from "@/lib/db/repositories/supabase/plot.repo";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,7 +43,7 @@ export default function PlotPage({
   // 기본 5막 구조 초기화
   useEffect(() => {
     if (!initialized && columns !== undefined && columns.length === 0) {
-      plotColumnRepo.initializeDefault(projectId).then(() => setInitialized(true));
+      supabasePlotColumnRepo.initializeDefault(projectId).then(() => setInitialized(true));
     }
   }, [columns, projectId, initialized]);
 
@@ -70,7 +70,7 @@ export default function PlotPage({
 
   async function handleAddColumn() {
     const maxOrder = columns?.reduce((max, c) => Math.max(max, c.order), -1) ?? -1;
-    await plotColumnRepo.create({
+    await supabasePlotColumnRepo.create({
       projectId,
       title: "새 열",
       color: COLUMN_COLORS[(maxOrder + 1) % COLUMN_COLORS.length],
@@ -80,7 +80,7 @@ export default function PlotPage({
 
   async function handleSaveColumnTitle(colId: string) {
     if (editColumnTitle.trim()) {
-      await plotColumnRepo.update(colId, { title: editColumnTitle.trim() });
+      await supabasePlotColumnRepo.update(colId, { title: editColumnTitle.trim() });
     }
     setEditColumnId(null);
   }
@@ -91,18 +91,18 @@ export default function PlotPage({
       ? `'${title}' 열과 안에 있는 ${colCardCount}개의 카드가 모두 삭제됩니다. 계속하시겠습니까?`
       : `'${title}' 열을 삭제하시겠습니까?`;
     if (confirm(msg)) {
-      await plotColumnRepo.delete(colId);
+      await supabasePlotColumnRepo.delete(colId);
     }
   }
 
   async function handleChangeColumnColor(colId: string, color: string) {
-    await plotColumnRepo.update(colId, { color });
+    await supabasePlotColumnRepo.update(colId, { color });
   }
 
   async function handleAddCard() {
     if (!newCardTitle.trim()) return;
     const colCards = cards?.filter((c) => c.columnId === addDialog.columnId) ?? [];
-    await plotCardRepo.create({
+    await supabasePlotCardRepo.create({
       projectId,
       columnId: addDialog.columnId,
       title: newCardTitle.trim(),
@@ -117,7 +117,7 @@ export default function PlotPage({
   }
 
   async function handleSaveEdit(cardId: string) {
-    await plotCardRepo.update(cardId, {
+    await supabasePlotCardRepo.update(cardId, {
       title: editTitle,
       description: editDesc,
     });
@@ -126,7 +126,7 @@ export default function PlotPage({
 
   async function handleMoveCard(cardId: string, targetColumnId: string) {
     const targetCards = cards?.filter((c) => c.columnId === targetColumnId) ?? [];
-    await plotCardRepo.moveToColumn(cardId, targetColumnId, targetCards.length);
+    await supabasePlotCardRepo.moveToColumn(cardId, targetColumnId, targetCards.length);
   }
 
   if (colLoading || cardLoading) {
@@ -312,7 +312,7 @@ export default function PlotPage({
                                       variant="ghost"
                                       size="icon"
                                       className="h-5 w-5"
-                                      onClick={() => plotCardRepo.delete(card.id)}
+                                      onClick={() => supabasePlotCardRepo.delete(card.id)}
                                     >
                                       <Trash2 className="h-3 w-3 text-destructive" />
                                     </Button>
