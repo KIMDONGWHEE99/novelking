@@ -2,17 +2,19 @@ import { createClient } from "@/lib/supabase/client";
 import type { PlotColumn, PlotCard } from "@/types/plot";
 import { nanoid } from "nanoid";
 
-const supabase = createClient();
+function getSupabase() {
+  return createClient();
+}
 
 async function getUserId(): Promise<string> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await getSupabase().auth.getUser();
   if (!user) throw new Error("Not authenticated");
   return user.id;
 }
 
 export const supabasePlotColumnRepo = {
   async getByProject(projectId: string): Promise<PlotColumn[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("plot_columns")
       .select("*")
       .eq("project_id", projectId)
@@ -24,7 +26,7 @@ export const supabasePlotColumnRepo = {
   async create(data: Omit<PlotColumn, "id">): Promise<string> {
     const userId = await getUserId();
     const id = nanoid();
-    const { error } = await supabase.from("plot_columns").insert({
+    const { error } = await getSupabase().from("plot_columns").insert({
       id,
       project_id: data.projectId,
       user_id: userId,
@@ -42,18 +44,18 @@ export const supabasePlotColumnRepo = {
     if (data.order !== undefined) updateData.order = data.order;
     if (data.color !== undefined) updateData.color = data.color;
 
-    const { error } = await supabase.from("plot_columns").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("plot_columns").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async delete(id: string): Promise<void> {
     // plot_cards는 ON DELETE CASCADE로 자동 삭제됨
-    const { error } = await supabase.from("plot_columns").delete().eq("id", id);
+    const { error } = await getSupabase().from("plot_columns").delete().eq("id", id);
     if (error) throw error;
   },
 
   async initializeDefault(projectId: string): Promise<void> {
-    const { count, error: countError } = await supabase
+    const { count, error: countError } = await getSupabase()
       .from("plot_columns")
       .select("*", { count: "exact", head: true })
       .eq("project_id", projectId);
@@ -76,14 +78,14 @@ export const supabasePlotColumnRepo = {
       ...col,
     }));
 
-    const { error } = await supabase.from("plot_columns").insert(rows);
+    const { error } = await getSupabase().from("plot_columns").insert(rows);
     if (error) throw error;
   },
 };
 
 export const supabasePlotCardRepo = {
   async getByProject(projectId: string): Promise<PlotCard[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("plot_cards")
       .select("*")
       .eq("project_id", projectId)
@@ -93,7 +95,7 @@ export const supabasePlotCardRepo = {
   },
 
   async getByColumn(columnId: string): Promise<PlotCard[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("plot_cards")
       .select("*")
       .eq("column_id", columnId)
@@ -105,7 +107,7 @@ export const supabasePlotCardRepo = {
   async create(data: Omit<PlotCard, "id">): Promise<string> {
     const userId = await getUserId();
     const id = nanoid();
-    const { error } = await supabase.from("plot_cards").insert({
+    const { error } = await getSupabase().from("plot_cards").insert({
       id,
       project_id: data.projectId,
       user_id: userId,
@@ -131,12 +133,12 @@ export const supabasePlotCardRepo = {
     if (data.color !== undefined) updateData.color = data.color;
     if (data.columnId !== undefined) updateData.column_id = data.columnId;
 
-    const { error } = await supabase.from("plot_cards").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("plot_cards").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async moveToColumn(id: string, columnId: string, order: number): Promise<void> {
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from("plot_cards")
       .update({ column_id: columnId, order })
       .eq("id", id);
@@ -144,7 +146,7 @@ export const supabasePlotCardRepo = {
   },
 
   async delete(id: string): Promise<void> {
-    const { error } = await supabase.from("plot_cards").delete().eq("id", id);
+    const { error } = await getSupabase().from("plot_cards").delete().eq("id", id);
     if (error) throw error;
   },
 };

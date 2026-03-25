@@ -2,17 +2,19 @@ import { createClient } from "@/lib/supabase/client";
 import type { WorldElement } from "@/types/world";
 import { nanoid } from "nanoid";
 
-const supabase = createClient();
+function getSupabase() {
+  return createClient();
+}
 
 async function getUserId(): Promise<string> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await getSupabase().auth.getUser();
   if (!user) throw new Error("Not authenticated");
   return user.id;
 }
 
 export const supabaseWorldRepo = {
   async getByProject(projectId: string): Promise<WorldElement[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("world_elements")
       .select("*")
       .eq("project_id", projectId);
@@ -21,7 +23,7 @@ export const supabaseWorldRepo = {
   },
 
   async getById(id: string): Promise<WorldElement | undefined> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("world_elements")
       .select("*")
       .eq("id", id)
@@ -34,7 +36,7 @@ export const supabaseWorldRepo = {
     const userId = await getUserId();
     const id = nanoid();
     const now = new Date().toISOString();
-    const { error } = await supabase.from("world_elements").insert({
+    const { error } = await getSupabase().from("world_elements").insert({
       id,
       project_id: data.projectId,
       user_id: userId,
@@ -58,12 +60,12 @@ export const supabaseWorldRepo = {
     if (data.fields !== undefined) updateData.fields = data.fields;
     if (data.generatedContent !== undefined) updateData.generated_content = data.generatedContent;
 
-    const { error } = await supabase.from("world_elements").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("world_elements").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async delete(id: string): Promise<void> {
-    const { error } = await supabase.from("world_elements").delete().eq("id", id);
+    const { error } = await getSupabase().from("world_elements").delete().eq("id", id);
     if (error) throw error;
   },
 };

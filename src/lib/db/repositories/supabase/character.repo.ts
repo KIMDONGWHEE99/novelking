@@ -2,17 +2,19 @@ import { createClient } from "@/lib/supabase/client";
 import type { Character } from "@/types/character";
 import { nanoid } from "nanoid";
 
-const supabase = createClient();
+function getSupabase() {
+  return createClient();
+}
 
 async function getUserId(): Promise<string> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await getSupabase().auth.getUser();
   if (!user) throw new Error("Not authenticated");
   return user.id;
 }
 
 export const supabaseCharacterRepo = {
   async getByProject(projectId: string): Promise<Character[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("characters")
       .select("*")
       .eq("project_id", projectId);
@@ -21,7 +23,7 @@ export const supabaseCharacterRepo = {
   },
 
   async getById(id: string): Promise<Character | undefined> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("characters")
       .select("*")
       .eq("id", id)
@@ -34,7 +36,7 @@ export const supabaseCharacterRepo = {
     const userId = await getUserId();
     const id = nanoid();
     const now = new Date().toISOString();
-    const { error } = await supabase.from("characters").insert({
+    const { error } = await getSupabase().from("characters").insert({
       id,
       project_id: data.projectId,
       user_id: userId,
@@ -70,12 +72,12 @@ export const supabaseCharacterRepo = {
     if (data.relationships !== undefined) updateData.relationships = data.relationships;
     if (data.generatedContent !== undefined) updateData.generated_content = data.generatedContent;
 
-    const { error } = await supabase.from("characters").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("characters").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async delete(id: string): Promise<void> {
-    const { error } = await supabase.from("characters").delete().eq("id", id);
+    const { error } = await getSupabase().from("characters").delete().eq("id", id);
     if (error) throw error;
   },
 };

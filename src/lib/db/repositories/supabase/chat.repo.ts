@@ -2,17 +2,19 @@ import { createClient } from "@/lib/supabase/client";
 import type { ChatSession, ChatMessage } from "@/types/ai";
 import { nanoid } from "nanoid";
 
-const supabase = createClient();
+function getSupabase() {
+  return createClient();
+}
 
 async function getUserId(): Promise<string> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await getSupabase().auth.getUser();
   if (!user) throw new Error("Not authenticated");
   return user.id;
 }
 
 export const supabaseChatSessionRepo = {
   async getByProject(projectId: string): Promise<ChatSession[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("chat_sessions")
       .select("*")
       .eq("project_id", projectId)
@@ -22,7 +24,7 @@ export const supabaseChatSessionRepo = {
   },
 
   async getById(id: string): Promise<ChatSession | undefined> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("chat_sessions")
       .select("*")
       .eq("id", id)
@@ -35,7 +37,7 @@ export const supabaseChatSessionRepo = {
     const userId = await getUserId();
     const id = nanoid();
     const now = new Date().toISOString();
-    const { error } = await supabase.from("chat_sessions").insert({
+    const { error } = await getSupabase().from("chat_sessions").insert({
       id,
       project_id: data.projectId,
       user_id: userId,
@@ -51,20 +53,20 @@ export const supabaseChatSessionRepo = {
     const updateData: Record<string, unknown> = { updated_at: new Date().toISOString() };
     if (data.title !== undefined) updateData.title = data.title;
 
-    const { error } = await supabase.from("chat_sessions").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("chat_sessions").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async delete(id: string): Promise<void> {
     // chat_messages는 ON DELETE CASCADE로 자동 삭제됨
-    const { error } = await supabase.from("chat_sessions").delete().eq("id", id);
+    const { error } = await getSupabase().from("chat_sessions").delete().eq("id", id);
     if (error) throw error;
   },
 };
 
 export const supabaseChatMessageRepo = {
   async getBySession(sessionId: string): Promise<ChatMessage[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("chat_messages")
       .select("*")
       .eq("session_id", sessionId)
@@ -77,7 +79,7 @@ export const supabaseChatMessageRepo = {
     const userId = await getUserId();
     const id = nanoid();
     const now = new Date().toISOString();
-    const { error } = await supabase.from("chat_messages").insert({
+    const { error } = await getSupabase().from("chat_messages").insert({
       id,
       session_id: data.sessionId,
       user_id: userId,
@@ -90,7 +92,7 @@ export const supabaseChatMessageRepo = {
   },
 
   async delete(id: string): Promise<void> {
-    const { error } = await supabase.from("chat_messages").delete().eq("id", id);
+    const { error } = await getSupabase().from("chat_messages").delete().eq("id", id);
     if (error) throw error;
   },
 };

@@ -2,10 +2,12 @@ import { createClient } from "@/lib/supabase/client";
 import type { Project, Chapter } from "@/types/project";
 import { nanoid } from "nanoid";
 
-const supabase = createClient();
+function getSupabase() {
+  return createClient();
+}
 
 async function getUserId(): Promise<string> {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await getSupabase().auth.getUser();
   if (!user) throw new Error("Not authenticated");
   return user.id;
 }
@@ -13,7 +15,7 @@ async function getUserId(): Promise<string> {
 export const supabaseProjectRepo = {
   async getAll(): Promise<Project[]> {
     const userId = await getUserId();
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("projects")
       .select("*")
       .eq("user_id", userId)
@@ -23,7 +25,7 @@ export const supabaseProjectRepo = {
   },
 
   async getById(id: string): Promise<Project | undefined> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("projects")
       .select("*")
       .eq("id", id)
@@ -36,7 +38,7 @@ export const supabaseProjectRepo = {
     const userId = await getUserId();
     const id = nanoid();
     const now = new Date().toISOString();
-    const { error } = await supabase.from("projects").insert({
+    const { error } = await getSupabase().from("projects").insert({
       id,
       user_id: userId,
       title: data.title,
@@ -59,19 +61,19 @@ export const supabaseProjectRepo = {
     if (data.coverImage !== undefined) updateData.cover_image = data.coverImage;
     if (data.settings !== undefined) updateData.settings = data.settings;
 
-    const { error } = await supabase.from("projects").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("projects").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async delete(id: string): Promise<void> {
-    const { error } = await supabase.from("projects").delete().eq("id", id);
+    const { error } = await getSupabase().from("projects").delete().eq("id", id);
     if (error) throw error;
   },
 };
 
 export const supabaseChapterRepo = {
   async getByProject(projectId: string): Promise<Chapter[]> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("chapters")
       .select("*")
       .eq("project_id", projectId)
@@ -81,7 +83,7 @@ export const supabaseChapterRepo = {
   },
 
   async getById(id: string): Promise<Chapter | undefined> {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("chapters")
       .select("*")
       .eq("id", id)
@@ -94,7 +96,7 @@ export const supabaseChapterRepo = {
     const userId = await getUserId();
     const id = nanoid();
     const now = new Date().toISOString();
-    const { error } = await supabase.from("chapters").insert({
+    const { error } = await getSupabase().from("chapters").insert({
       id,
       project_id: data.projectId,
       user_id: userId,
@@ -119,13 +121,13 @@ export const supabaseChapterRepo = {
     if (data.status !== undefined) updateData.status = data.status;
     if (data.order !== undefined) updateData.order = data.order;
 
-    const { error } = await supabase.from("chapters").update(updateData).eq("id", id);
+    const { error } = await getSupabase().from("chapters").update(updateData).eq("id", id);
     if (error) throw error;
   },
 
   async updateContent(id: string, content: string): Promise<void> {
     const wordCount = content.replace(/<[^>]*>/g, "").length;
-    const { error } = await supabase.from("chapters").update({
+    const { error } = await getSupabase().from("chapters").update({
       content,
       word_count: wordCount,
       updated_at: new Date().toISOString(),
@@ -134,7 +136,7 @@ export const supabaseChapterRepo = {
   },
 
   async saveRawDraft(id: string, rawDraft: string): Promise<void> {
-    const { error } = await supabase.from("chapters").update({
+    const { error } = await getSupabase().from("chapters").update({
       raw_draft: rawDraft,
       updated_at: new Date().toISOString(),
     }).eq("id", id);
@@ -142,7 +144,7 @@ export const supabaseChapterRepo = {
   },
 
   async delete(id: string): Promise<void> {
-    const { error } = await supabase.from("chapters").delete().eq("id", id);
+    const { error } = await getSupabase().from("chapters").delete().eq("id", id);
     if (error) throw error;
   },
 };
