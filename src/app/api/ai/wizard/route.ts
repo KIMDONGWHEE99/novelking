@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
 import { createLlmModel } from "@/lib/ai/create-model";
 import { validateAiRequest, logAiUsage } from "@/lib/ai/auth-middleware";
+import { getGenreGuideline } from "@/lib/ai/prompts/genre-guidelines";
 
 export async function POST(req: NextRequest) {
   // 인증 + 크레딧 검사
   const auth = await validateAiRequest();
   if (auth instanceof Response) return auth;
 
-  const { step, idea, genre, previousResults, provider, model } =
+  const { step, idea, genre, previousResults, provider, model, feedback, currentResult } =
     await req.json();
 
   if (!idea) {
@@ -25,11 +26,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // revise 모드 감지 (예: "synopsis-revise" → baseStep="synopsis")
+  const isRevise = step.endsWith("-revise");
+  const baseStep = isRevise ? step.replace("-revise", "") : step;
+
+  // 장르별 전문 가이드라인
+  const genreGuide = getGenreGuideline(genre, baseStep as "synopsis" | "characters" | "world" | "plot");
+
   const prompts: Record<string, string> = {
     synopsis: `당신은 베스트셀러 소설 기획 전문가입니다.
 
 사용자의 아이디어: "${idea}"
 장르: ${genre || "미정"}
+${genreGuide}
 
 이 아이디어를 바탕으로 상업적으로 성공할 수 있는 소설 시놉시스를 작성하세요.
 
@@ -49,6 +58,7 @@ export async function POST(req: NextRequest) {
 - 제목: ${previousResults?.title || "미정"}
 - 시놉시스: ${previousResults?.synopsis || idea}
 - 장르: ${genre || "미정"}
+${genreGuide}
 
 이 소설에 필요한 주요 등장인물 3-5명을 설계하세요.
 
@@ -74,6 +84,7 @@ export async function POST(req: NextRequest) {
 - 제목: ${previousResults?.title || "미정"}
 - 시놉시스: ${previousResults?.synopsis || idea}
 - 장르: ${genre || "미정"}
+${genreGuide}
 
 이 소설의 세계관 설정을 만들어주세요.
 
@@ -97,6 +108,7 @@ type은 setting(배경), location(장소), magic-system(마법/능력), culture(
 - 시놉시스: ${previousResults?.synopsis || idea}
 - 장르: ${genre || "미정"}
 - 예상 챕터 수: ${previousResults?.estimatedChapters || 10}
+${genreGuide}
 
 이 소설의 챕터별 플롯을 구성하세요.
 
@@ -114,9 +126,29 @@ type은 setting(배경), location(장소), magic-system(마법/능력), culture(
 }`,
   };
 
-  const systemPrompt = prompts[step];
-  if (!systemPrompt) {
-    return NextResponse.json({ error: "Invalid step" }, { status: 400 });
+  let systemPrompt: string;
+
+  if (isRevise && feedback && currentResult) {
+    // 수정 모드: 기존 결과 + 피드백으로 수정 요청
+    const basePrompt = prompts[baseStep];
+    if (!basePrompt) {
+      return NextResponse.json({ error: "Invalid step" }, { status: 400 });
+    }
+    systemPrompt = `${basePrompt}
+
+=== 수정 요청 ===
+이전에 생성한 결과:
+${typeof currentResult === "string" ? currentResult : JSON.stringify(currentResult, null, 2)}
+
+사용자 피드백: "${feedback}"
+
+위 피드백을 반영하여 수정된 버전을 같은 JSON 형식으로 작성하세요.
+피드백과 관련 없는 부분은 기존 내용을 유지하되, 전체적인 완성도를 높여주세요.`;
+  } else {
+    systemPrompt = prompts[baseStep];
+    if (!systemPrompt) {
+      return NextResponse.json({ error: "Invalid step" }, { status: 400 });
+    }
   }
 
   try {

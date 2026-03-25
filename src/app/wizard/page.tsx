@@ -23,6 +23,9 @@ import {
   BookOpen,
   Check,
   ArrowLeft,
+  RefreshCw,
+  MessageSquare,
+  Send,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -39,6 +42,14 @@ const STEPS = [
   { id: "plot", label: "챕터 구성", icon: BookOpen, desc: "챕터별 플롯을 짭니다" },
   { id: "complete", label: "완성", icon: Check, desc: "프로젝트가 생성됩니다" },
 ];
+
+// 각 단계별 피드백 예시 문구
+const FEEDBACK_SUGGESTIONS: Record<string, string[]> = {
+  synopsis: ["더 긴장감 있게", "주인공의 동기를 강화", "반전 요소 추가", "톤을 더 어둡게"],
+  characters: ["여성 캐릭터 추가", "악역의 동기를 더 깊게", "캐릭터 관계를 복잡하게", "멘토 캐릭터 추가"],
+  world: ["더 구체적인 지명", "경제 체계 추가", "종교/신앙 설정 추가", "일상생활 묘사 추가"],
+  plot: ["더 많은 반전", "로맨스 서브플롯 추가", "클라이맥스 강화", "복선 추가"],
+};
 
 interface WizardResults {
   title?: string;
@@ -77,7 +88,11 @@ export default function WizardPage() {
   const [results, setResults] = useState<WizardResults>({});
   const [isCreating, setIsCreating] = useState(false);
 
-  async function callWizardApi(step: string) {
+  // 피드백 상태
+  const [feedbackText, setFeedbackText] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  async function callWizardApi(step: string, feedback?: string, currentResult?: unknown) {
     setIsGenerating(true);
     try {
       const res = await fetch("/api/ai/wizard", {
@@ -90,11 +105,14 @@ export default function WizardPage() {
           previousResults: results,
           provider: activeProvider,
           model: activeModel,
+          feedback,
+          currentResult,
         }),
       });
 
       if (!res.ok) {
-        alert("AI 생성에 실패했습니다. API 키와 모델 설정을 확인해주세요.");
+        const errorData = await res.json().catch(() => null);
+        alert(errorData?.error || "AI 생성에 실패했습니다.");
         return null;
       }
 
@@ -111,37 +129,82 @@ export default function WizardPage() {
     }
   }
 
+  // 현재 단계의 step ID 반환
+  function getStepApiName(stepIndex: number): string {
+    const map: Record<number, string> = { 1: "synopsis", 2: "characters", 3: "world", 4: "plot" };
+    return map[stepIndex] || "";
+  }
+
+  // 현재 단계의 결과 데이터 반환
+  function getCurrentStepResult(stepIndex: number): unknown {
+    switch (stepIndex) {
+      case 1: return { title: results.title, logline: results.logline, synopsis: results.synopsis, themes: results.themes };
+      case 2: return { characters: results.characters };
+      case 3: return { worldElements: results.worldElements };
+      case 4: return { chapters: results.chapters };
+      default: return null;
+    }
+  }
+
+  // 리롤 (같은 입력으로 다시 생성)
+  async function handleReroll() {
+    const stepName = getStepApiName(currentStep);
+    if (!stepName) return;
+
+    const data = await callWizardApi(stepName);
+    if (data) {
+      setResults((prev) => ({ ...prev, ...data }));
+      setShowFeedback(false);
+      setFeedbackText("");
+    }
+  }
+
+  // 피드백으로 수정 요청
+  async function handleRevise() {
+    if (!feedbackText.trim()) return;
+    const stepName = getStepApiName(currentStep);
+    if (!stepName) return;
+
+    const currentResult = getCurrentStepResult(currentStep);
+    const data = await callWizardApi(`${stepName}-revise`, feedbackText, currentResult);
+    if (data) {
+      setResults((prev) => ({ ...prev, ...data }));
+      setFeedbackText("");
+      setShowFeedback(false);
+    }
+  }
+
   async function handleNext() {
     const stepId = STEPS[currentStep].id;
 
     if (stepId === "idea") {
       if (!idea.trim()) return;
-      // 시놉시스 생성
       const data = await callWizardApi("synopsis");
       if (data) {
         setResults((prev) => ({ ...prev, ...data }));
         setCurrentStep(1);
+        setShowFeedback(false);
       }
     } else if (stepId === "synopsis") {
-      // 캐릭터 생성
       const data = await callWizardApi("characters");
       if (data) {
         setResults((prev) => ({ ...prev, ...data }));
         setCurrentStep(2);
+        setShowFeedback(false);
       }
     } else if (stepId === "characters") {
-      // 세계관 생성
       const data = await callWizardApi("world");
       if (data) {
         setResults((prev) => ({ ...prev, ...data }));
         setCurrentStep(3);
+        setShowFeedback(false);
       }
     } else if (stepId === "world") {
-      // 챕터 플롯 생성
       const data = await callWizardApi("plot");
       if (data) {
         setResults((prev) => ({ ...prev, ...data }));
         setCurrentStep(4);
+        setShowFeedback(false);
       }
     } else if (stepId === "plot") {
       setCurrentStep(5);
@@ -151,7 +214,6 @@ export default function WizardPage() {
   async function handleCreateProject() {
     setIsCreating(true);
     try {
-      // 1. 프로젝트 생성
       const projectId = await supabaseProjectRepo.create({
         title: results.title || "새 소설",
         description: results.synopsis || idea,
@@ -163,68 +225,42 @@ export default function WizardPage() {
         },
       });
 
-      // 2. 캐릭터 생성
       if (results.characters) {
         for (const char of results.characters) {
           await supabaseCharacterRepo.create({
-            projectId,
-            name: char.name,
-            role: char.role,
-            tags: [char.role],
-            description: char.description,
-            traits: char.traits || [],
-            backstory: "",
-            relationships: [],
+            projectId, name: char.name, role: char.role, tags: [char.role],
+            description: char.description, traits: char.traits || [],
+            backstory: "", relationships: [],
           });
         }
       }
 
-      // 3. 세계관 생성
       if (results.worldElements) {
         for (const we of results.worldElements) {
           await supabaseWorldRepo.create({
             projectId,
             type: we.type as "setting" | "location" | "magic-system" | "culture" | "history" | "custom",
-            title: we.title,
-            content: we.content,
-            fields: [],
+            title: we.title, content: we.content, fields: [],
           });
         }
       }
 
-      // 4. 플롯 열 + 카드 + 챕터 생성
       if (results.chapters) {
-        // 플롯 열 초기화
         await supabasePlotColumnRepo.initializeDefault(projectId);
         const columns = await supabasePlotColumnRepo.getByProject(projectId);
-
         const actToColumn: Record<string, string> = {};
-        for (const col of columns) {
-          actToColumn[col.title] = col.id;
-        }
+        for (const col of columns) actToColumn[col.title] = col.id;
 
         for (const ch of results.chapters) {
-          // 챕터 생성
           await supabaseChapterRepo.create({
-            projectId,
-            title: `${ch.number}장: ${ch.title}`,
-            content: "",
-            rawDraft: "",
-            wordCount: 0,
-            order: ch.number - 1,
-            status: "draft",
+            projectId, title: `${ch.number}장: ${ch.title}`, content: "", rawDraft: "",
+            wordCount: 0, order: ch.number - 1, status: "draft",
           });
-
-          // 플롯 카드 생성
           const columnId = actToColumn[ch.act] || columns[0]?.id;
           if (columnId) {
             await supabasePlotCardRepo.create({
-              projectId,
-              columnId,
-              title: `${ch.number}장: ${ch.title}`,
-              description: ch.summary,
-              characterLinks: [],
-              order: ch.number - 1,
+              projectId, columnId, title: `${ch.number}장: ${ch.title}`,
+              description: ch.summary, characterLinks: [], order: ch.number - 1,
             });
           }
         }
@@ -237,6 +273,74 @@ export default function WizardPage() {
     } finally {
       setIsCreating(false);
     }
+  }
+
+  // 리롤 + 피드백 액션바 (step 1~4에서 공통 사용)
+  function renderActionBar() {
+    const stepName = getStepApiName(currentStep);
+    const suggestions = FEEDBACK_SUGGESTIONS[stepName] || [];
+
+    return (
+      <div className="space-y-3 border-t pt-4 mt-4">
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5"
+            onClick={handleReroll}
+            disabled={isGenerating}
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+            다시 생성
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5"
+            onClick={() => setShowFeedback(!showFeedback)}
+            disabled={isGenerating}
+          >
+            <MessageSquare className="h-3.5 w-3.5" />
+            수정 요청
+          </Button>
+        </div>
+
+        {showFeedback && (
+          <div className="space-y-2">
+            <div className="flex flex-wrap gap-1.5">
+              {suggestions.map((s) => (
+                <Badge
+                  key={s}
+                  variant="outline"
+                  className="cursor-pointer hover:bg-primary/10 text-xs"
+                  onClick={() => setFeedbackText((prev) => prev ? `${prev}, ${s}` : s)}
+                >
+                  {s}
+                </Badge>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <Textarea
+                value={feedbackText}
+                onChange={(e) => setFeedbackText(e.target.value)}
+                placeholder="어떤 부분을 수정할까요? 예: 시대 배경을 조선 초기로 변경해주세요"
+                rows={2}
+                className="text-sm"
+              />
+              <Button
+                size="sm"
+                className="shrink-0 gap-1.5 self-end"
+                onClick={handleRevise}
+                disabled={!feedbackText.trim() || isGenerating}
+              >
+                {isGenerating ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
+                수정
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -274,11 +378,7 @@ export default function WizardPage() {
                       : "text-muted-foreground"
                   }`}
                 >
-                  {isDone ? (
-                    <Check className="h-3 w-3" />
-                  ) : (
-                    <Icon className="h-3 w-3" />
-                  )}
+                  {isDone ? <Check className="h-3 w-3" /> : <Icon className="h-3 w-3" />}
                   <span className="hidden sm:inline">{step.label}</span>
                 </div>
                 {i < STEPS.length - 1 && (
@@ -382,6 +482,8 @@ export default function WizardPage() {
               </CardContent>
             </Card>
 
+            {renderActionBar()}
+
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setCurrentStep(0)}>
                 <ChevronLeft className="h-4 w-4 mr-1" />
@@ -419,6 +521,8 @@ export default function WizardPage() {
               ))}
             </div>
 
+            {renderActionBar()}
+
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setCurrentStep(1)}>
                 <ChevronLeft className="h-4 w-4 mr-1" />
@@ -450,6 +554,8 @@ export default function WizardPage() {
                 </Card>
               ))}
             </div>
+
+            {renderActionBar()}
 
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setCurrentStep(2)}>
@@ -489,6 +595,8 @@ export default function WizardPage() {
                 </Card>
               ))}
             </div>
+
+            {renderActionBar()}
 
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setCurrentStep(3)}>
