@@ -1,6 +1,6 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 
-const DEFAULT_MODEL = "claude-sonnet-4-6-20250514";
+const DEFAULT_MODEL = "claude-sonnet-4-5-20250929";
 
 // 유효한 Anthropic 모델인지 확인
 function isValidAnthropicModel(model: string): boolean {

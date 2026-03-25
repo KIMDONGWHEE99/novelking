@@ -51,7 +51,7 @@ export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
       activeProvider: "anthropic",
-      activeModel: "claude-sonnet-4-6-20250514",
+      activeModel: "claude-sonnet-4-5-20250929",
       customTransformPrompt: "",
       customWritePrompt: "",
       writingStyle: "대중소설",
