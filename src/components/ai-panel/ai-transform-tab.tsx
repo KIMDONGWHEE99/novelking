@@ -24,7 +24,7 @@ export function AiTransformTab({
   editor,
   contextSelection,
 }: AiTransformTabProps) {
-  const { activeProvider, activeModel, customTransformPrompt, writingStyle, stylePrompts } = useAppStore();
+  const { activeProvider, activeModel, customTransformPrompt, writingStyle, stylePrompts, targetWordCount } = useAppStore();
   const [isTransforming, setIsTransforming] = useState(false);
   const [preview, setPreview] = useState("");
   const [isDone, setIsDone] = useState(false);
@@ -77,6 +77,7 @@ export function AiTransformTab({
           customPrompt: customTransformPrompt,
           writingStyle,
           stylePrompt: getStylePrompt(writingStyle, stylePrompts),
+          targetWordCount,
         }),
       });
 

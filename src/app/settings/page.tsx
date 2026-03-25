@@ -57,6 +57,8 @@ export default function SettingsPage() {
     removeCustomStyle,
     setStylePrompt,
     resetStylePrompt,
+    targetWordCount,
+    setTargetWordCount,
   } = useAppStore();
 
   const [newStyle, setNewStyle] = useState("");
@@ -160,6 +162,52 @@ export default function SettingsPage() {
                 </SelectContent>
               </Select>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* AI 작성 글자수 */}
+        <Card>
+          <CardHeader>
+            <CardTitle>AI 작성 글자수</CardTitle>
+            <CardDescription>
+              AI가 소설을 작성할 때 목표로 하는 1회당 글자수입니다.
+              웹소설 플랫폼에 맞게 설정하세요.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {[
+                { label: "노벨피아", value: 3500 },
+                { label: "문피아", value: 5000 },
+                { label: "카카오페이지", value: 5500 },
+                { label: "네이버 시리즈", value: 6000 },
+              ].map((preset) => (
+                <Button
+                  key={preset.value}
+                  variant={targetWordCount === preset.value ? "default" : "outline"}
+                  className="flex flex-col h-auto py-3"
+                  onClick={() => setTargetWordCount(preset.value)}
+                >
+                  <span className="text-sm font-semibold">{preset.value.toLocaleString()}자</span>
+                  <span className="text-[10px] opacity-70">{preset.label}</span>
+                </Button>
+              ))}
+            </div>
+            <div className="flex items-center gap-3">
+              <Label className="text-sm shrink-0">직접 입력:</Label>
+              <Input
+                type="number"
+                value={targetWordCount}
+                onChange={(e) => setTargetWordCount(Math.max(500, Math.min(20000, Number(e.target.value) || 5000)))}
+                className="w-28"
+                min={500}
+                max={20000}
+              />
+              <span className="text-sm text-muted-foreground">자</span>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              * AI 작성 패널에서도 개별 조절 가능합니다. 여기서는 기본값을 설정합니다.
+            </p>
           </CardContent>
         </Card>
 

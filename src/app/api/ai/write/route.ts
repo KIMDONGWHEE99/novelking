@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   const auth = await validateAiRequest();
   if (auth instanceof Response) return auth;
 
-  const { messages, contextBlock, provider, model, customPrompt, writingStyle, stylePrompt } = await req.json();
+  const { messages, contextBlock, provider, model, customPrompt, writingStyle, stylePrompt, targetWordCount } = await req.json();
 
   let llmModel;
   try {
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       ? `\n\n문체 스타일: ${writingStyle}`
       : "";
   const customNote = customPrompt ? `\n\n사용자 추가 지시: ${customPrompt}` : "";
-  const systemPrompt = buildWriteSystemPrompt(contextBlock || undefined) + styleNote + customNote;
+  const systemPrompt = buildWriteSystemPrompt(contextBlock || undefined, targetWordCount) + styleNote + customNote;
 
   const result = streamText({
     model: llmModel,

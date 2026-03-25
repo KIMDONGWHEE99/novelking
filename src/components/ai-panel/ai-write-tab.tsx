@@ -38,7 +38,7 @@ export function AiWriteTab({
   editor,
   contextSelection,
 }: AiWriteTabProps) {
-  const { activeProvider, activeModel, customWritePrompt, writingStyle, stylePrompts } = useAppStore();
+  const { activeProvider, activeModel, customWritePrompt, writingStyle, stylePrompts, targetWordCount, setTargetWordCount } = useAppStore();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -80,6 +80,7 @@ export function AiWriteTab({
           customPrompt: customWritePrompt,
           writingStyle,
           stylePrompt: getStylePrompt(writingStyle, stylePrompts),
+          targetWordCount,
         }),
       });
 
@@ -259,6 +260,40 @@ export function AiWriteTab({
           </Button>
         </div>
       )}
+
+      {/* 글자수 설정 */}
+      <div className="border-t px-3 py-2">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="text-[10px] text-muted-foreground shrink-0">목표 글자수:</span>
+          {[
+            { label: "3.5K", value: 3500, desc: "노벨피아" },
+            { label: "5K", value: 5000, desc: "문피아" },
+            { label: "5.5K", value: 5500, desc: "카카오" },
+            { label: "6K", value: 6000, desc: "네이버" },
+          ].map((preset) => (
+            <button
+              key={preset.value}
+              onClick={() => setTargetWordCount(preset.value)}
+              className={`text-[10px] px-1.5 py-0.5 rounded border transition-colors ${
+                targetWordCount === preset.value
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-muted/50 hover:bg-muted border-transparent"
+              }`}
+              title={preset.desc}
+            >
+              {preset.label}
+            </button>
+          ))}
+          <input
+            type="number"
+            value={targetWordCount}
+            onChange={(e) => setTargetWordCount(Math.max(500, Math.min(20000, Number(e.target.value) || 5000)))}
+            className="w-14 text-[10px] px-1.5 py-0.5 rounded border bg-background text-center"
+            min={500}
+            max={20000}
+          />
+        </div>
+      </div>
 
       {/* 입력 영역 */}
       <div className="border-t p-3">

@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     customPrompt,
     writingStyle,
     stylePrompt,
+    targetWordCount,
   } = await req.json();
 
   if (!text) {
@@ -50,7 +51,8 @@ export async function POST(req: Request) {
 
   // 전체 챕터 변환 모드
   if (mode === "fullChapter") {
-    const systemPrompt = buildFullTransformSystemPrompt(contextBlock || undefined) + styleNote + customNote;
+    const wordCountNote = targetWordCount ? `\n\n=== 분량 지침 ===\n변환 후 약 ${targetWordCount.toLocaleString()}자(공백 포함) 분량이 되도록 조절해주세요.` : "";
+    const systemPrompt = buildFullTransformSystemPrompt(contextBlock || undefined) + styleNote + customNote + wordCountNote;
     const result = streamText({
       model: llmModel,
       system: systemPrompt,

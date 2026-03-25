@@ -24,6 +24,9 @@ interface AppState {
   customStyles: string[];
   stylePrompts: Record<string, string>; // 문체별 커스텀 프롬프트
 
+  // 글자수 설정
+  targetWordCount: number;
+
   // UI 상태
   sidebarOpen: boolean;
   aiPanelOpen: boolean;
@@ -31,6 +34,7 @@ interface AppState {
   // Actions
   setActiveProvider: (provider: string) => void;
   setActiveModel: (model: string) => void;
+  setTargetWordCount: (count: number) => void;
   setCustomTransformPrompt: (prompt: string) => void;
   setCustomWritePrompt: (prompt: string) => void;
   setWritingStyle: (style: string) => void;
@@ -51,6 +55,7 @@ export const useAppStore = create<AppState>()(
       customTransformPrompt: "",
       customWritePrompt: "",
       writingStyle: "대중소설",
+      targetWordCount: 5000,
       customStyles: [],
       stylePrompts: {},
       sidebarOpen: true,
@@ -58,6 +63,7 @@ export const useAppStore = create<AppState>()(
 
       setActiveProvider: (provider) => set({ activeProvider: provider }),
       setActiveModel: (model) => set({ activeModel: model }),
+      setTargetWordCount: (count) => set({ targetWordCount: count }),
       setCustomTransformPrompt: (prompt) =>
         set({ customTransformPrompt: prompt }),
       setCustomWritePrompt: (prompt) => set({ customWritePrompt: prompt }),
