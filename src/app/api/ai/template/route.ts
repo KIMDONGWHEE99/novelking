@@ -17,8 +17,6 @@ export async function POST(req: Request) {
     return new Response(e instanceof Error ? e.message : "모델 생성 실패", { status: 400 });
   }
 
-  await logAiUsage(auth.userId, `template-${type}`, model, input?.slice(0, 200));
-
   let systemPrompt: string;
   if (type === "character") {
     systemPrompt = buildCharacterGeneratePrompt(genre);
@@ -31,6 +29,8 @@ export async function POST(req: Request) {
     system: systemPrompt,
     prompt: input,
   });
+
+  await logAiUsage(auth.userId, `template-${type}`, model, input?.slice(0, 500), result.text);
 
   return Response.json({ content: result.text });
 }

@@ -70,19 +70,22 @@ export async function validateAiRequest(): Promise<
 
 /**
  * AI 사용 로그를 ai_logs 테이블에 기록합니다.
+ * outputSummary: AI가 생성한 결과값 (앞 500자)
  */
 export async function logAiUsage(
   userId: string,
   action: string,
   model: string,
-  inputSummary?: string
+  inputSummary?: string,
+  outputSummary?: string
 ) {
   const supabase = await createServerSupabase();
   await supabase.from("ai_logs").insert({
     user_id: userId,
     action,
     model,
-    input_summary: inputSummary?.slice(0, 200),
-    tokens_used: 0, // 실제 토큰 추적은 추후 구현
+    input_summary: inputSummary?.slice(0, 500),
+    output_summary: outputSummary?.slice(0, 2000),
+    tokens_used: 0,
   });
 }

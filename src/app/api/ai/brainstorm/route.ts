@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     return new Response(e instanceof Error ? e.message : "모델 생성 실패", { status: 400 });
   }
 
-  await logAiUsage(auth.userId, "brainstorm", model);
+  await logAiUsage(auth.userId, "brainstorm", model, messages?.[messages.length - 1]?.content?.slice(0, 500));
 
   let systemPrompt = `당신은 소설 창작을 돕는 브레인스토밍 파트너입니다.
 사용자와 함께 소설의 아이디어를 발전시키고, 줄거리를 구상하고, 캐릭터를 개발하는 것을 도와주세요.

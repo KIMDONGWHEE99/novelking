@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     return new Response(e instanceof Error ? e.message : "모델 생성 실패", { status: 400 });
   }
 
-  await logAiUsage(auth.userId, "write", model);
+  await logAiUsage(auth.userId, "write", model, messages?.[messages.length - 1]?.content?.slice(0, 500));
 
   const styleNote = stylePrompt
     ? `\n\n=== 문체 스타일: ${writingStyle} ===\n${stylePrompt}`

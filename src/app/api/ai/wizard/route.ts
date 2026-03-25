@@ -25,8 +25,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  await logAiUsage(auth.userId, `wizard-${step}`, model, idea.slice(0, 200));
-
   const prompts: Record<string, string> = {
     synopsis: `당신은 베스트셀러 소설 기획 전문가입니다.
 
@@ -127,6 +125,8 @@ type은 setting(배경), location(장소), magic-system(마법/능력), culture(
       system: "당신은 소설 기획 AI 어시스턴트입니다. 반드시 유효한 JSON으로만 응답하세요. 마크다운 코드블록 없이 순수 JSON만 출력하세요.",
       prompt: systemPrompt,
     });
+
+    await logAiUsage(auth.userId, `wizard-${step}`, model, idea.slice(0, 500), result.text);
 
     return NextResponse.json({ content: result.text });
   } catch (error: unknown) {
