@@ -57,7 +57,7 @@ export default function CharactersPage({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = use(params);
-  const { characters, isLoading } = useCharacters(projectId);
+  const { characters, isLoading, refetch } = useCharacters(projectId);
   const { project } = useProject(projectId);
   const { elements: worldElements } = useWorldElements(projectId);
   const { activeProvider, activeModel } = useAppStore();
@@ -167,6 +167,7 @@ export default function CharactersPage({
       });
     }
 
+    refetch();
     setOpen(false);
     resetForm();
   }
@@ -183,6 +184,7 @@ export default function CharactersPage({
   async function handleDelete(id: string, charName: string) {
     if (confirm(`'${charName}' 캐릭터를 삭제하시겠습니까?`)) {
       await supabaseCharacterRepo.delete(id);
+      refetch();
     }
   }
 

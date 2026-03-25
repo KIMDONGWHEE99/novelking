@@ -48,7 +48,7 @@ export default function WorldbuildingPage({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = use(params);
-  const { elements, isLoading } = useWorldElements(projectId);
+  const { elements, isLoading, refetch } = useWorldElements(projectId);
   const { project } = useProject(projectId);
   const { activeProvider, activeModel } = useAppStore();
 
@@ -103,6 +103,7 @@ export default function WorldbuildingPage({
       generatedContent,
     });
 
+    refetch();
     setOpen(false);
     setTitle("");
     setBriefDesc("");
@@ -110,6 +111,7 @@ export default function WorldbuildingPage({
 
   async function handleSaveEdit(id: string) {
     await supabaseWorldRepo.update(id, { content: editContent });
+    refetch();
     setEditId(null);
   }
 
@@ -245,9 +247,10 @@ export default function WorldbuildingPage({
                         variant="ghost"
                         size="icon"
                         className="h-7 w-7"
-                        onClick={() => {
+                        onClick={async () => {
                           if (confirm(`'${el.title}'을 삭제하시겠습니까?`)) {
-                            supabaseWorldRepo.delete(el.id);
+                            await supabaseWorldRepo.delete(el.id);
+                            refetch();
                           }
                         }}
                       >

@@ -35,8 +35,8 @@ export default function PlotPage({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = use(params);
-  const { columns, isLoading: colLoading } = usePlotColumns(projectId);
-  const { cards, isLoading: cardLoading } = usePlotCards(projectId);
+  const { columns, isLoading: colLoading, refetch: refetchColumns } = usePlotColumns(projectId);
+  const { cards, isLoading: cardLoading, refetch: refetchCards } = usePlotCards(projectId);
   const { characters } = useCharacters(projectId);
   const [initialized, setInitialized] = useState(false);
 
@@ -76,11 +76,13 @@ export default function PlotPage({
       color: COLUMN_COLORS[(maxOrder + 1) % COLUMN_COLORS.length],
       order: maxOrder + 1,
     });
+    refetchColumns();
   }
 
   async function handleSaveColumnTitle(colId: string) {
     if (editColumnTitle.trim()) {
       await supabasePlotColumnRepo.update(colId, { title: editColumnTitle.trim() });
+      refetchColumns();
     }
     setEditColumnId(null);
   }
@@ -92,11 +94,14 @@ export default function PlotPage({
       : `'${title}' 열을 삭제하시겠습니까?`;
     if (confirm(msg)) {
       await supabasePlotColumnRepo.delete(colId);
+      refetchColumns();
+      refetchCards();
     }
   }
 
   async function handleChangeColumnColor(colId: string, color: string) {
     await supabasePlotColumnRepo.update(colId, { color });
+    refetchColumns();
   }
 
   async function handleAddCard() {
@@ -110,6 +115,7 @@ export default function PlotPage({
       characterLinks: newCardChars,
       order: colCards.length,
     });
+    refetchCards();
     setAddDialog({ open: false, columnId: "", columnTitle: "" });
     setNewCardTitle("");
     setNewCardDesc("");
@@ -121,12 +127,14 @@ export default function PlotPage({
       title: editTitle,
       description: editDesc,
     });
+    refetchCards();
     setEditCard(null);
   }
 
   async function handleMoveCard(cardId: string, targetColumnId: string) {
     const targetCards = cards?.filter((c) => c.columnId === targetColumnId) ?? [];
     await supabasePlotCardRepo.moveToColumn(cardId, targetColumnId, targetCards.length);
+    refetchCards();
   }
 
   if (colLoading || cardLoading) {
@@ -312,7 +320,7 @@ export default function PlotPage({
                                       variant="ghost"
                                       size="icon"
                                       className="h-5 w-5"
-                                      onClick={() => supabasePlotCardRepo.delete(card.id)}
+                                      onClick={async () => { await supabasePlotCardRepo.delete(card.id); refetchCards(); }}
                                     >
                                       <Trash2 className="h-3 w-3 text-destructive" />
                                     </Button>

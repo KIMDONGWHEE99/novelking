@@ -70,7 +70,7 @@ export default function ProjectSettingsPage({
 
   function handleSettingsChange(field: string, value: string | null) {
     if (!project || !value) return;
-    const defaults = { defaultLlmProvider: "openai", defaultLlmModel: "", writingStyle: "대중소설" };
+    const defaults = { defaultLlmProvider: "anthropic", defaultLlmModel: "claude-sonnet-4-6-20250514", writingStyle: "대중소설" };
     const newSettings = { ...defaults, ...project.settings, [field]: value };
     save({ settings: newSettings });
   }
@@ -105,8 +105,8 @@ export default function ProjectSettingsPage({
     );
   }
 
-  const currentProvider = project.settings?.defaultLlmProvider || "openai";
-  const currentModel = project.settings?.defaultLlmModel || "";
+  const currentProvider = "anthropic";
+  const currentModel = project.settings?.defaultLlmModel || "claude-sonnet-4-6-20250514";
   const currentStyle = project.settings?.writingStyle || "대중소설";
   const models = getModelsForProvider(currentProvider);
 
@@ -238,21 +238,9 @@ export default function ProjectSettingsPage({
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label>AI 제공자</Label>
-            <Select
-              value={currentProvider}
-              onValueChange={(v) => handleSettingsChange("defaultLlmProvider", v)}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {PROVIDERS.map((p) => (
-                  <SelectItem key={p.id} value={p.id}>
-                    {p.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="flex items-center h-10 px-3 rounded-md border bg-muted/50 text-sm">
+              Claude (Anthropic)
+            </div>
           </div>
 
           <div className="space-y-2">

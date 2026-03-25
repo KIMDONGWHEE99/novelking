@@ -142,14 +142,9 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>AI 제공자</Label>
-              <Select value={activeProvider} onValueChange={handleProviderChange}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {PROVIDERS.map((p) => (
-                    <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="flex items-center h-10 px-3 rounded-md border bg-muted/50 text-sm">
+                Claude (Anthropic)
+              </div>
             </div>
             <div className="space-y-2">
               <Label>모델</Label>
