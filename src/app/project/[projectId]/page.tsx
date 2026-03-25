@@ -3,7 +3,7 @@
 import { use } from "react";
 import { useProject } from "@/lib/db/hooks/use-projects";
 import { useChapters } from "@/lib/db/hooks/use-chapters";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { supabaseChapterRepo } from "@/lib/db/repositories/supabase/project.repo";
 import { PenTool, FileText, MessageSquare, Users, Download } from "lucide-react";
@@ -40,9 +40,6 @@ export default function ProjectDashboard({
       <div className="mb-8 flex items-start justify-between">
         <div>
           <h1 className="text-3xl font-bold">{project?.title}</h1>
-          {project?.description && (
-            <p className="text-muted-foreground mt-2">{project.description}</p>
-          )}
         </div>
         {chapters && chapters.length > 0 && (
           <div className="flex gap-2">
@@ -73,6 +70,18 @@ export default function ProjectDashboard({
           </div>
         )}
       </div>
+
+      {/* 시놉시스 */}
+      {project?.description && (
+        <Card className="mb-8">
+          <CardHeader className="pb-2">
+            <CardDescription>시놉시스</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm leading-relaxed whitespace-pre-line">{project.description}</p>
+          </CardContent>
+        </Card>
+      )}
 
       {/* 통계 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
