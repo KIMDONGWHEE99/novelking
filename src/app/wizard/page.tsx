@@ -92,7 +92,12 @@ export default function WizardPage() {
   const [feedbackText, setFeedbackText] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
 
-  async function callWizardApi(step: string, feedback?: string, currentResult?: unknown) {
+  async function callWizardApi(
+    step: string,
+    feedback?: string,
+    currentResult?: unknown,
+    characterIndex?: number
+  ) {
     setIsGenerating(true);
     try {
       const res = await fetch("/api/ai/wizard", {
@@ -107,19 +112,39 @@ export default function WizardPage() {
           model: activeModel,
           feedback,
           currentResult,
+          characterIndex,
         }),
       });
 
       if (!res.ok) {
-        const errorData = await res.json().catch(() => null);
-        alert(errorData?.error || "AI 생성에 실패했습니다.");
+        let errorMsg = "AI 생성에 실패했습니다.";
+        try {
+          const errorData = await res.json();
+          errorMsg = errorData?.error || errorMsg;
+        } catch { /* 스트림 에러 시 JSON 파싱 실패 가능 */ }
+        alert(errorMsg);
         return null;
       }
 
-      const { content } = await res.json();
+      // 스트림 응답 읽기
+      const reader = res.body?.getReader();
+      if (!reader) {
+        alert("응답을 읽을 수 없습니다.");
+        return null;
+      }
+
+      const decoder = new TextDecoder();
+      let fullText = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        fullText += decoder.decode(value, { stream: true });
+      }
+
       try {
-        const jsonMatch = content.match(/\{[\s\S]*\}/);
-        return JSON.parse(jsonMatch?.[0] ?? content);
+        const jsonMatch = fullText.match(/\{[\s\S]*\}/);
+        return JSON.parse(jsonMatch?.[0] ?? fullText);
       } catch {
         alert("AI 응답을 파싱하지 못했습니다. 다시 시도해주세요.");
         return null;
@@ -156,6 +181,17 @@ export default function WizardPage() {
       setResults((prev) => ({ ...prev, ...data }));
       setShowFeedback(false);
       setFeedbackText("");
+    }
+  }
+
+  // 캐릭터 개별 리롤
+  async function handleSingleCharacterReroll(index: number) {
+    const currentChars = { characters: results.characters };
+    const data = await callWizardApi("characters-single", undefined, currentChars, index);
+    if (data && results.characters) {
+      const newChars = [...results.characters];
+      newChars[index] = data;
+      setResults((prev) => ({ ...prev, characters: newChars }));
     }
   }
 
@@ -510,10 +546,20 @@ export default function WizardPage() {
                       <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-bold">
                         {char.name[0]}
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <p className="font-medium">{char.name}</p>
                         <Badge variant="outline" className="text-[10px]">{char.role}</Badge>
                       </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="shrink-0 gap-1 text-xs text-muted-foreground"
+                        onClick={() => handleSingleCharacterReroll(i)}
+                        disabled={isGenerating}
+                      >
+                        <RefreshCw className="h-3 w-3" />
+                        다시
+                      </Button>
                     </div>
                     <p className="text-sm text-muted-foreground">{char.description}</p>
                   </CardContent>
