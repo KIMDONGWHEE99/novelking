@@ -21,9 +21,11 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  // 마법사는 JSON 구조화 작업이므로 빠른 Haiku 모델 사용 (60초 타임아웃 방지)
+  const WIZARD_MODEL = "claude-haiku-4-5-20251001";
   let llm;
   try {
-    llm = createLlmModel(provider, model);
+    llm = createLlmModel(provider, WIZARD_MODEL);
   } catch (e: unknown) {
     return new Response(
       JSON.stringify({ error: e instanceof Error ? e.message : "모델 생성 실패" }),
