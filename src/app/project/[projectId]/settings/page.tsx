@@ -3,29 +3,21 @@
 import { use, useState, useRef, useCallback } from "react";
 import { useProject } from "@/lib/db/hooks/use-projects";
 import { supabaseProjectRepo } from "@/lib/db/repositories/supabase/project.repo";
-import { PROVIDERS, getModelsForProvider } from "@/lib/ai/provider-registry";
-import { DEFAULT_STYLE_PROMPTS } from "@/lib/ai/prompts/styles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   ImagePlus,
   Trash2,
   Save,
   AlertTriangle,
+  Settings,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const GENRE_OPTIONS = [
   "로맨스", "판타지", "SF", "미스터리/추리", "스릴러/호러",
@@ -68,13 +60,6 @@ export default function ProjectSettingsPage({
     save({ coverImage: base64 });
   }
 
-  function handleSettingsChange(field: string, value: string | null) {
-    if (!project || !value) return;
-    const defaults = { defaultLlmProvider: "anthropic", defaultLlmModel: "claude-sonnet-4-6-20250514", writingStyle: "대중소설" };
-    const newSettings = { ...defaults, ...project.settings, [field]: value };
-    save({ settings: newSettings });
-  }
-
   async function handleDeleteProject() {
     if (!project) return;
     const confirmed = confirm(
@@ -105,18 +90,13 @@ export default function ProjectSettingsPage({
     );
   }
 
-  const currentProvider = "anthropic";
-  const currentModel = project.settings?.defaultLlmModel || "claude-sonnet-4-6-20250514";
-  const currentStyle = project.settings?.writingStyle || "대중소설";
-  const models = getModelsForProvider(currentProvider);
-
   return (
     <div className="p-8 max-w-2xl space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">프로젝트 설정</h1>
           <p className="text-sm text-muted-foreground">
-            소설 프로젝트의 기본 정보와 AI 설정을 관리합니다
+            소설 프로젝트의 기본 정보를 관리합니다
           </p>
         </div>
         {saved && (
@@ -227,56 +207,21 @@ export default function ProjectSettingsPage({
         </CardContent>
       </Card>
 
-      {/* 프로젝트 AI 설정 */}
+      {/* AI 설정 안내 */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">프로젝트 AI 설정</CardTitle>
+          <CardTitle className="text-base">AI 설정</CardTitle>
           <CardDescription>
-            이 프로젝트에서 사용할 AI 설정입니다. 전역 설정과 별도로 관리됩니다.
+            AI 모델, 문체 스타일, 글자수 등은 전역 설정에서 관리됩니다
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label>AI 제공자</Label>
-            <div className="flex items-center h-10 px-3 rounded-md border bg-muted/50 text-sm">
-              Claude (Anthropic)
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label>모델</Label>
-            <Select
-              value={currentModel}
-              onValueChange={(v) => handleSettingsChange("defaultLlmModel", v)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="모델 선택" />
-              </SelectTrigger>
-              <SelectContent>
-                {models.map((m) => (
-                  <SelectItem key={m.id} value={m.id}>
-                    {m.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label>기본 문체 스타일</Label>
-            <div className="flex flex-wrap gap-2">
-              {Object.keys(DEFAULT_STYLE_PROMPTS).map((style) => (
-                <Badge
-                  key={style}
-                  variant={currentStyle === style ? "default" : "outline"}
-                  className="cursor-pointer"
-                  onClick={() => handleSettingsChange("writingStyle", style)}
-                >
-                  {style}
-                </Badge>
-              ))}
-            </div>
-          </div>
+        <CardContent>
+          <Link href="/settings">
+            <Button variant="outline" className="gap-2">
+              <Settings className="h-4 w-4" />
+              전역 AI 설정으로 이동
+            </Button>
+          </Link>
         </CardContent>
       </Card>
 
