@@ -142,7 +142,7 @@ export default function WritePage({
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col flex-1 h-0 min-h-0">
       {/* 상단 도구바 */}
       <div className="border-b px-6 py-3 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
