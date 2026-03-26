@@ -54,7 +54,7 @@ export function ProjectSidebar({ projectId }: ProjectSidebarProps) {
   }
 
   return (
-    <div className="w-64 border-r flex flex-col h-full bg-card">
+    <div className="w-64 border-r flex flex-col h-full min-h-0 bg-card">
       {/* 프로젝트 헤더 */}
       <div className="p-4 border-b">
         <Link href="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-3">
@@ -69,7 +69,7 @@ export function ProjectSidebar({ projectId }: ProjectSidebarProps) {
         )}
       </div>
 
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1 min-h-0">
         {/* 네비게이션 */}
         <nav className="p-2">
           {NAV_ITEMS.map((item) => {
