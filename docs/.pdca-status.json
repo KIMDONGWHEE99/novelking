@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-24T19:48:28.058Z",
+  "lastUpdated": "2026-03-26T19:01:18.689Z",
   "activeFeatures": [
     "novelking",
     "db",
@@ -32,7 +32,8 @@
     "pricing",
     "account",
     "landing",
-    "[shareToken]"
+    "[shareToken]",
+    "ui"
   ],
   "primaryFeature": "novelking",
   "features": {
@@ -45,7 +46,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:32:36.270Z",
-        "lastUpdated": "2026-03-24T19:38:47.742Z"
+        "lastUpdated": "2026-03-24T20:15:40.307Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\page.tsx"
     },
@@ -84,9 +85,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:33:26.096Z",
-        "lastUpdated": "2026-03-24T18:43:05.378Z"
+        "lastUpdated": "2026-03-25T07:09:12.924Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\ai\\provider-registry.ts"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\ai\\auth-middleware.ts"
     },
     "prompts": {
       "phase": "do",
@@ -97,9 +98,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:33:40.354Z",
-        "lastUpdated": "2026-03-24T08:07:59.434Z"
+        "lastUpdated": "2026-03-25T07:25:31.178Z"
       },
-      "lastFile": "C:/Users/PC/novelking/src/lib/ai/prompts/styles.ts"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\ai\\prompts\\genre-guidelines.ts"
     },
     "store": {
       "phase": "do",
@@ -110,7 +111,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:33:44.683Z",
-        "lastUpdated": "2026-03-24T18:43:13.657Z"
+        "lastUpdated": "2026-03-25T07:00:03.534Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\store\\app-store.ts"
     },
@@ -123,7 +124,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:33:54.543Z",
-        "lastUpdated": "2026-03-24T18:42:02.248Z"
+        "lastUpdated": "2026-03-25T05:25:26.729Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\ai\\transform\\route.ts"
     },
@@ -136,7 +137,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:34:02.206Z",
-        "lastUpdated": "2026-03-24T18:44:23.452Z"
+        "lastUpdated": "2026-03-26T18:14:34.748Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\brainstorm\\page.tsx"
     },
@@ -175,9 +176,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:35:37.782Z",
-        "lastUpdated": "2026-03-24T18:28:24.986Z"
+        "lastUpdated": "2026-03-26T19:01:18.689Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\page.tsx"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\layout.tsx"
     },
     "editor": {
       "phase": "do",
@@ -201,7 +202,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:37:44.164Z",
-        "lastUpdated": "2026-03-24T19:48:28.058Z"
+        "lastUpdated": "2026-03-26T18:52:45.533Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\write\\[chapterId]\\page.tsx"
     },
@@ -214,9 +215,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:37:59.298Z",
-        "lastUpdated": "2026-03-24T18:45:07.650Z"
+        "lastUpdated": "2026-03-25T06:29:20.967Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\settings\\page.tsx"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\settings\\page.tsx"
     },
     "characters": {
       "phase": "do",
@@ -227,7 +228,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:38:35.587Z",
-        "lastUpdated": "2026-03-24T18:44:29.719Z"
+        "lastUpdated": "2026-03-25T06:15:10.254Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\characters\\page.tsx"
     },
@@ -240,7 +241,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:38:39.578Z",
-        "lastUpdated": "2026-03-24T18:28:49.541Z"
+        "lastUpdated": "2026-03-25T06:15:58.819Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\project\\[projectId]\\plot\\page.tsx"
     },
@@ -253,7 +254,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T06:06:12.936Z",
-        "lastUpdated": "2026-03-24T18:42:06.051Z"
+        "lastUpdated": "2026-03-25T07:09:45.940Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\ai\\write\\route.ts"
     },
@@ -266,9 +267,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T06:07:52.822Z",
-        "lastUpdated": "2026-03-24T18:44:16.799Z"
+        "lastUpdated": "2026-03-25T05:26:07.988Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\components\\ai-panel\\ai-review-tab.tsx"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\components\\ai-panel\\ai-transform-tab.tsx"
     },
     "templates": {
       "phase": "do",
@@ -292,7 +293,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T06:19:31.986Z",
-        "lastUpdated": "2026-03-24T18:42:36.394Z"
+        "lastUpdated": "2026-03-25T07:10:19.364Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\ai\\template\\route.ts"
     },
@@ -331,9 +332,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T16:26:28.093Z",
-        "lastUpdated": "2026-03-24T18:44:19.924Z"
+        "lastUpdated": "2026-03-25T15:14:47.303Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\wizard\\page.tsx"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\ai\\wizard\\route.ts"
     },
     "review": {
       "phase": "do",
@@ -357,9 +358,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T17:28:11.848Z",
-        "lastUpdated": "2026-03-24T19:47:52.084Z"
+        "lastUpdated": "2026-03-25T03:25:02.842Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\supabase\\middleware.ts"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\db\\repositories\\supabase\\chat.repo.ts"
     },
     "login": {
       "phase": "do",
@@ -370,7 +371,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T17:29:02.989Z",
-        "lastUpdated": "2026-03-24T19:38:23.138Z"
+        "lastUpdated": "2026-03-24T20:24:54.824Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\login\\page.tsx"
     },
@@ -422,7 +423,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T19:30:13.239Z",
-        "lastUpdated": "2026-03-24T19:30:13.239Z"
+        "lastUpdated": "2026-03-25T04:55:03.890Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\components\\landing\\landing-page.tsx"
     },
@@ -438,6 +439,19 @@
         "lastUpdated": "2026-03-24T19:47:44.437Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\read\\[shareToken]\\page.tsx"
+    },
+    "ui": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-25T06:16:53.650Z",
+        "lastUpdated": "2026-03-25T06:16:53.650Z"
+      },
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\components\\ui\\select.tsx"
     }
   },
   "pipeline": {
@@ -448,7 +462,7 @@
   "session": {
     "startedAt": "2026-03-24T05:21:29.041Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-24T19:48:28.058Z"
+    "lastActivity": "2026-03-26T19:01:18.689Z"
   },
   "history": [
     {
@@ -2020,6 +2034,438 @@
     {
       "timestamp": "2026-03-24T19:48:28.058Z",
       "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T20:13:12.829Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T20:13:13.749Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T20:13:14.276Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T20:15:35.649Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T20:15:40.307Z",
+      "feature": "novelking",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T20:24:54.824Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:24:48.815Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:24:54.050Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:24:54.304Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:24:54.551Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:24:54.783Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:24:59.605Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:25:00.512Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:25:01.365Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:25:02.254Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T03:25:02.842Z",
+      "feature": "supabase",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T04:55:03.890Z",
+      "feature": "landing",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:24:26.574Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:24:30.861Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:24:35.566Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:02.896Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:10.218Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:14.437Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:19.114Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:26.729Z",
+      "feature": "transform",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:32.684Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:37.609Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:25:48.247Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:26:02.729Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:26:07.988Z",
+      "feature": "ai-panel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:26:18.573Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:26:40.178Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:14:43.901Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:03.790Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:10.254Z",
+      "feature": "characters",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:32.571Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:43.651Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:47.688Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:54.522Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:15:58.819Z",
+      "feature": "plot",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:16:23.425Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:16:28.026Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:16:34.098Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:16:46.742Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:16:53.650Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:29:20.967Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:54:00.948Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:59:55.375Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:59:59.342Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:00:03.534Z",
+      "feature": "store",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:09:12.924Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:09:23.746Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:09:29.941Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:09:45.940Z",
+      "feature": "write",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:09:53.026Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:10:19.364Z",
+      "feature": "template",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:25:31.178Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:26:14.721Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:28:00.255Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T14:51:11.371Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T14:52:24.766Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T14:52:33.863Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T14:52:44.872Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T14:53:55.805Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T15:14:47.303Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T15:49:47.944Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T15:49:59.777Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T18:13:19.949Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T18:14:34.748Z",
+      "feature": "brainstorm",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T18:52:39.668Z",
+      "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T18:52:45.533Z",
+      "feature": "[chapterId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T19:01:18.689Z",
+      "feature": "[projectId]",
       "phase": "do",
       "action": "updated"
     }

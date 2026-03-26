@@ -146,7 +146,7 @@ export default function PlotPage({
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col flex-1 min-h-0">
       <div className="border-b px-6 py-3 shrink-0">
         <h1 className="text-lg font-bold">플롯 보드</h1>
         <p className="text-xs text-muted-foreground">

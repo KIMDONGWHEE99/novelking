@@ -91,7 +91,7 @@ export default function ProjectSettingsPage({
   }
 
   return (
-    <div className="p-8 max-w-2xl space-y-6">
+    <div className="p-8 max-w-2xl space-y-6 flex-1 overflow-auto">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">프로젝트 설정</h1>

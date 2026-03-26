@@ -197,7 +197,7 @@ export default function CharactersPage({
   }
 
   return (
-    <div className="p-8 max-w-5xl">
+    <div className="p-8 max-w-5xl flex-1 overflow-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold">캐릭터</h1>

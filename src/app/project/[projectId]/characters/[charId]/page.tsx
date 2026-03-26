@@ -130,7 +130,7 @@ export default function CharacterDetailPage({
   }
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-8 max-w-3xl flex-1 overflow-auto">
       {/* 헤더 */}
       <Link
         href={`/project/${projectId}/characters`}

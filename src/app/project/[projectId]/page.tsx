@@ -36,7 +36,7 @@ export default function ProjectDashboard({
   const totalWords = chapters?.reduce((sum, c) => sum + c.wordCount, 0) ?? 0;
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-8 max-w-4xl flex-1 overflow-auto">
       <div className="mb-8 flex items-start justify-between">
         <div>
           <h1 className="text-3xl font-bold">{project?.title}</h1>

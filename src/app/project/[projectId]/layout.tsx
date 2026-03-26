@@ -15,7 +15,7 @@ export default function ProjectLayout({
   return (
     <div className="flex h-screen overflow-hidden">
       <ProjectSidebar projectId={projectId} />
-      <main className="flex-1 overflow-auto flex flex-col">{children}</main>
+      <main className="flex-1 overflow-hidden flex flex-col">{children}</main>
     </div>
   );
 }
