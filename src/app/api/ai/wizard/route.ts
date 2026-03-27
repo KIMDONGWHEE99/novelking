@@ -3,6 +3,7 @@ import { streamText } from "ai";
 import { createLlmModel } from "@/lib/ai/create-model";
 import { validateAiRequest, logAiUsage } from "@/lib/ai/auth-middleware";
 import { getGenreGuideline } from "@/lib/ai/prompts/genre-guidelines";
+import { loadPrompt, loadGenreGuideline } from "@/lib/ai/prompt-loader";
 
 export const maxDuration = 60;
 
@@ -38,8 +39,14 @@ export async function POST(req: NextRequest) {
   const isSingleCharacter = step === "characters-single";
   const baseStep = isRevise ? step.replace("-revise", "") : (isSingleCharacter ? "characters" : step);
 
-  // 장르별 전문 가이드라인
-  const genreGuide = getGenreGuideline(genre, baseStep as "synopsis" | "characters" | "world" | "plot");
+  // 장르별 전문 가이드라인 (DB 우선, 없으면 코드 기본값)
+  const dbGenreGuide = genre ? await loadGenreGuideline(genre, baseStep) : null;
+  const genreGuide = dbGenreGuide
+    ? "\n\n" + dbGenreGuide
+    : getGenreGuideline(genre, baseStep as "synopsis" | "characters" | "world" | "plot");
+
+  // DB에서 마법사 프롬프트 로드 시도
+  const dbPrompt = await loadPrompt("wizard", baseStep);
 
   const prompts: Record<string, string> = {
     synopsis: `당신은 베스트셀러 소설 기획 전문가입니다.
@@ -133,6 +140,11 @@ ${genreGuide}
   ]
 }`,
   };
+
+  // DB에 저장된 프롬프트가 있으면 우선 사용
+  if (dbPrompt && prompts[baseStep]) {
+    prompts[baseStep] = dbPrompt;
+  }
 
   let systemPrompt: string;
 

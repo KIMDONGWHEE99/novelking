@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-26T19:01:18.689Z",
+  "lastUpdated": "2026-03-27T07:05:16.173Z",
   "activeFeatures": [
     "novelking",
     "db",
@@ -33,7 +33,8 @@
     "account",
     "landing",
     "[shareToken]",
-    "ui"
+    "ui",
+    "test"
   ],
   "primaryFeature": "novelking",
   "features": {
@@ -85,9 +86,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:33:26.096Z",
-        "lastUpdated": "2026-03-25T07:09:12.924Z"
+        "lastUpdated": "2026-03-27T07:03:52.610Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\ai\\auth-middleware.ts"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\ai\\admin-auth.ts"
     },
     "prompts": {
       "phase": "do",
@@ -98,9 +99,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:33:40.354Z",
-        "lastUpdated": "2026-03-25T07:25:31.178Z"
+        "lastUpdated": "2026-03-27T07:05:16.173Z"
       },
-      "lastFile": "C:\\Users\\PC\\novelking\\src\\lib\\ai\\prompts\\genre-guidelines.ts"
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\admin\\prompts\\route.ts"
     },
     "store": {
       "phase": "do",
@@ -163,7 +164,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T05:34:46.947Z",
-        "lastUpdated": "2026-03-24T18:28:14.396Z"
+        "lastUpdated": "2026-03-26T19:05:16.710Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\components\\project\\project-sidebar.tsx"
     },
@@ -332,7 +333,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-24T16:26:28.093Z",
-        "lastUpdated": "2026-03-25T15:14:47.303Z"
+        "lastUpdated": "2026-03-27T07:02:29.367Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\ai\\wizard\\route.ts"
     },
@@ -452,6 +453,19 @@
         "lastUpdated": "2026-03-25T06:16:53.650Z"
       },
       "lastFile": "C:\\Users\\PC\\novelking\\src\\components\\ui\\select.tsx"
+    },
+    "test": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-27T07:00:01.625Z",
+        "lastUpdated": "2026-03-27T07:00:01.625Z"
+      },
+      "lastFile": "C:\\Users\\PC\\novelking\\src\\app\\api\\admin\\test\\route.ts"
     }
   },
   "pipeline": {
@@ -462,7 +476,7 @@
   "session": {
     "startedAt": "2026-03-24T05:21:29.041Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-26T19:01:18.689Z"
+    "lastActivity": "2026-03-27T07:05:16.173Z"
   },
   "history": [
     {
@@ -2466,6 +2480,108 @@
     {
       "timestamp": "2026-03-26T19:01:18.689Z",
       "feature": "[projectId]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T19:05:05.521Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T19:05:16.710Z",
+      "feature": "project",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T06:59:16.252Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T06:59:38.615Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T06:59:51.248Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:00:01.625Z",
+      "feature": "test",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:01:33.974Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:02:01.369Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:02:08.664Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:02:29.367Z",
+      "feature": "wizard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:03:38.736Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:03:43.493Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:03:47.907Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:03:52.610Z",
+      "feature": "ai",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:03:57.100Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:04:01.898Z",
+      "feature": "prompts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-27T07:05:16.173Z",
+      "feature": "prompts",
       "phase": "do",
       "action": "updated"
     }
